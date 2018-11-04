@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  /**
+  函数声明和函数表达式的区别,解析器在向执行环境加载数据时,解析器会率先读取函数声明,并使其在
+  执行任何代码之前可以访问,至于函数表达式,则必须等到解析器执行到他所在的代码行,才会真正被执行
+  (执行代码前,会把声明函数放到源代码的顶部)
+  */
+
+  // 未进入执行阶段之前，变量对象(VO)中的属性都不能访问！但是进入执行阶段之后，变量对象(VO)转变为了活动对象(AO)，里面的属性都能被访问了，
+  // 然后开始进行执行阶段的操作。它们其实都是同一个对象，只是处于执行上下文的不同生命周期
+</script>
+<script>
+  var value = 1;
+
+  function bar() {
+    var value = 2;
+
+    function foo() {
+      console.log(value);
+    }
+    foo()
+  }
+
+  bar();
+</script>
+<script>
+  var value = 1;
+
+  function foo() {
+    console.log(value);
+  }
+
+  function bar() {
+    var value = 2;
+
+    foo()
+  }
+
+  bar();
+</script>
