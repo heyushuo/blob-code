@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
-  <body></body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body></body>
+
 </html>
 <script>
   // 1.什么是作用域
@@ -25,9 +28,11 @@
   // 注意:函数创建的作用域在函数定义时就已经确定了。而不是在函数调用时确定。(学名:词法作用域或者静态作用域)(这一点非常重要重要举一个例子)
   // 例子一:
   var name = "kebi";
+
   function foo() {
     console.log(name);
   }
+
   function bar() {
     var name = "heyushuo";
     foo();
@@ -36,8 +41,10 @@
   //在执行bar函数内部的foo()的时候,应为foo是在全局创建的,所以是在全局作用域,此时全局作用域中name=kebi,所以打印出来的是kebi
   // 例子二:
   var name = "kebi";
+
   function bar() {
     var name = "heyushuo";
+
     function foo() {
       console.log(name);
     }
@@ -66,9 +73,9 @@
 
   foo(); //执行这个方法
   // bar()函数中打印的是什么呢?
-  // 1.现在bar作用域里查找变量name,不存在
+  // 1.先在bar作用域里查找变量name,不存在
   // 2.接着要到创建这个函数的那个作用域中取值——是“创建”,即foo作用域内,发现还是没有
-  // 3.最后就是像全局作用域去寻找,发现name是kebi,结束,打印   出 kebi
+  // 3.最后就是向全局作用域去寻找,发现name是kebi,结束,打印   出 kebi
 
   // 这样一步一步的找,直到找到全局作用域为止,这个路线我们称之为作用域链
 </script>
