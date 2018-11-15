@@ -34,7 +34,6 @@
     //2.换句话说,原来存在Parent的实例中的属性和方法,现在也存在Child.prototype中了
     Child.prototype = new Parent();
     console.log(Child.prototype);
-
     //3.在继承了Parent实例中的属性和方法后基础上,又添加了属于自己的一个新方法(这里两个名字一样会覆盖)
     Child.prototype.sayChildName = function () {
         console.log(this.name);
@@ -54,7 +53,7 @@
     console.log(Person instanceof Child); //true
     console.log(Person instanceof Parent); //true
     console.log(Person instanceof Object); //true
-    // 由于原型链的关系,可以说Person是他们三个钟腾和一个类型的实例
+    // 由于原型链的关系,可以说Person是他们三个中任何一个类型的实例
     //2.isPrototypeOf(Person) 只要原型链中出现过的原型,都可以说是该原型链派生的实例的原型
     //可以理解为,是否是实例的原型
     Object.prototype.isPrototypeOf(Person) //true
