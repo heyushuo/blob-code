@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-
-</body>
-
+  <body></body>
 </html>
 <script>
   //一.构造函数继承
@@ -44,10 +40,45 @@
   var Person = new Child();
   console.log(Person.name); //heyushuo
 
-  // 需要注意的:为了确保Parent构造函数不会重写子类型的属性,需要在Parent.call(this);之后在定义子类型中的属性
+  // 需要注意的:为了确保Parent构造函数不会重写子类型的属性,需要在Parent.call(this)之后在定义子类型中的属性
   //3.构造函数的缺点
   //因为方法和属性只能写在构造函数中,因此不能实现函数复用
   // 只能继承父类的实例属性和方法，不能继承原型属性/方法 (原型中定义的方法和属性对于子类是不可见的)
 
   //二.组合继承(原型链和构造函数组合式继承)
+  // 通俗来讲就是用原型链实现对原型属性和方法的继承，用借用构造函数继承来实现对实例属性的继承。
+  function Parent(name) {
+    this.name = name;
+    this.newArr = ["red", "blue", "green"];
+  }
+  Parent.prototype.sayName = function() {
+    console.log(this.name);
+  };
+
+  function Child(name) {
+    Parent.call(this, name);
+    this.age = 26;
+  }
+
+  Child.prototype = new Parent();
+  //重写Child.prototype的constructor属性,使其执行自己的构造函数Child
+  Child.prototype.constructor = Child;
+  Child.prototype.sayAge = function() {
+    console.log(this.age);
+  };
+
+  var Person1 = new Child("heyushuo");
+  console.log(Person1);
+  Person1.newArr.push("yellow");
+  console.log(Person.newArr); //["red", "blue", "green","yellow"]
+  Person.sayName(); //heyushuo
+
+  var Person2 = new Child("kebi");
+  console.log(Person2.newArr); //["red", "blue", "green"]
+  Person.sayName(); //kebi
+
+  // ![](https://img2018.cnblogs.com/blog/993144/201811/993144-20181119231214754-441093386.png)
+
+  //组合式继承避免了原型链和构造函数的缺陷,融合了他们的有点,成为最常用的继承模式
+  // 组合式继承有一个缺点, 如上图可以看出, 创建的实例和原型上存在两份相同的属性即(name和newArr);
 </script>
