@@ -117,4 +117,8 @@
   instance2.sayName(); //kebi
   instance1.colors.push("yellow"); // ["red", "blue", "green", "yellow"]
   instance1.colors.push("black"); // ["red", "blue", "green", "black"]
+
+  // 总结:
+  // 上边的例子高效的体现了只调用了一次SuperType构造函数,并且因此也避免了在SubType.prototype上面创建不必要的
+  // 多余的属性
 </script>
