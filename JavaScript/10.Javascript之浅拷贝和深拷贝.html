@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-
-</body>
-
+  <body></body>
 </html>
 <script>
   var info = {
-    name: 'heyushuo',
-    age: 25
-  }
-
+    name: "heyushuo",
+    age: 25,
+    arr: [1, 2, 3],
+    say: function() {
+      console.log("heyushuo");
+    }
+  };
+  // console.log(info.constructor);
+  // var aa = JSON.stringify(info);
+  // var bb = JSON.parse(aa);
+  // console.log(bb.constructor);
   var person = info;
-  person.age = 13
+  person.age = 13;
   console.log(person);
   var person1 = info;
-  console.log(person1)
+  console.log(person1);
+  //浅复制
+  function clone(obj) {
+    if (typeof obj != "object") {
+      return "需要传入对象";
+    }
+    var object = obj.constructor === Array ? [] : {};
+    for (var i in obj) {
+      object[i] = obj[i];
+    }
+    return object;
+  }
+
+  console.log(clone(info));
+  console.log(clone("213"));
+  console.log(clone([1, 2, 3, 4, 5]));
+
+  var target = {};
+
+  Object.assign(target, info);
+  console.log(target);
 </script>
