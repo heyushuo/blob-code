@@ -12,27 +12,39 @@
 
 </html>
 <script>
+  /**
+   *      浅复制是指只复制一层对象的属性，不会复制对象中的对象的属性，对象的深复制会复制对象中层层嵌套的对象的属性。
+   *      简单来说浅复制只复制一层对象的属性，而深复制则递归复制了所有层级。
+   **/
   var info = {
     name: "heyushuo",
     age: 25,
     arr: [1, 2, 3],
+    obj: {
+      "name": 'kebi',
+      "age": 36
+    },
     say: function () {
       console.log("heyushuo");
-    }
+    },
+    reg: new RegExp(/[0-9]/),
+    date: new Date()
   };
   // console.log(info.constructor);
   // var aa = JSON.stringify(info);
   // var bb = JSON.parse(aa);
   // console.log(bb.constructor);
-  var person = info;
-  person.age = 13;
-  console.log(person);
-  var person1 = info;
-  console.log(person1);
-  //浅复制
+  // var person = info;
+  // person.age = 13;
+  // console.log(person);
+  // var person1 = info;
+  // console.log(person1);
+  /**
+   *     浅复制
+   **/
   function clone(obj) {
     if (typeof obj != "object") {
-      return "需要传入对象";
+      return "need a object";
     }
     var object = obj.constructor === Array ? [] : {};
     for (var i in obj) {
@@ -44,9 +56,67 @@
   console.log(clone(info));
   console.log(clone("213"));
   console.log(clone([1, 2, 3, 4, 5]));
+  /**
+   *    深复制
+   **/
+  //  1.最简单的方式
 
+  var str = JSON.stringify(info)
+  console.log(str);
+  console.log(JSON.parse(str))
+
+  /**
+   *    大多数情况下，上面的就可以满足要求了，但一些时候，我们需要把函数，
+   *    正则等特殊数据类型也考虑在内，或者当前环境不支持JSON时，上面的方法也就不适用了。这时，我们可以通过递归来实现对象的深层复制
+   **/
+
+  function deepCopy(obj) {
+    if (typeof obj != 'object') {
+      return 'need a object'
+    }
+    var object = obj.constructor == Array ? [] : {};
+    for (var i in obj) {
+      //判断是对象还是普通类型
+      if (typeof obj[i] == "object") {
+        object[i] = deepCopy(obj[i])
+      } else {
+        object[i] = obj[i];
+      }
+    }
+    return object;
+  }
+  console.log('------');
+
+  console.log(deepCopy(info));
+
+  //合并对象
   var target = {};
-
   Object.assign(target, info);
   console.log(target);
+
+  function mergeObj(target, obj) {
+    if (typeof obj != 'object') {
+      return 'need a object'
+    }
+    var object = target;
+    for (var i in obj) {
+      //判断是对象还是普通类型
+      if (typeof obj[i] == "object") {
+        object[i] = deepCopy(obj[i])
+      } else {
+        object[i] = obj[i];
+      }
+    }
+    return object;
+  }
+  var heyushuo = mergeObj({
+    "a": "sdfsadfsdf",
+    name: "2123123"
+  }, {
+    "c": '2323',
+    "d": '8989',
+    "name": 'sdf'
+  })
+
+  console.log(heyushuo);
 </script>
