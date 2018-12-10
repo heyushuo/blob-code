@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Document</title>
-</head>
-
-<body></body>
-
+  <body></body>
 </html>
 <script>
   /**
@@ -21,10 +19,10 @@
     age: 25,
     arr: [1, 2, 3],
     obj: {
-      "name": 'kebi',
-      "age": 36
+      name: "kebi",
+      age: 36
     },
-    say: function () {
+    say: function() {
       console.log("heyushuo");
     },
     reg: new RegExp(/[0-9]/),
@@ -56,14 +54,26 @@
   console.log(clone(info));
   console.log(clone("213"));
   console.log(clone([1, 2, 3, 4, 5]));
+
+  //浅复制
+  var target = {};
+  Object.assign(target, info);
+  console.log(target);
+  /**
+   *      concat()这个方法会先创建当前数组一个副本，然后将接收到的参数
+   *      添加到这个副本的末尾，最后返回新构建的数组。1.不传参数在没有给 concat()方法传递参数的情况下，它只是
+   *      复制当前数组并返回副本。如果传递给 concat()方法的是一或多个数组，则该方法会将这些数组中的
+   *      每一项都添加到结果数组中。如果传递的值不是数组，这些值就会被简单地添加到结果数组的末尾。
+   **/
+
   /**
    *    深复制
    **/
   //  1.最简单的方式
 
-  var str = JSON.stringify(info)
+  var str = JSON.stringify(info);
   console.log(str);
-  console.log(JSON.parse(str))
+  console.log(JSON.parse(str));
 
   /**
    *    大多数情况下，上面的就可以满足要求了，但一些时候，我们需要把函数，
@@ -71,21 +81,21 @@
    **/
 
   function deepCopy(obj) {
-    if (typeof obj != 'object') {
-      return 'need a object'
+    if (typeof obj != "object") {
+      return "need a object";
     }
     var object = obj.constructor == Array ? [] : {};
     for (var i in obj) {
       //判断是对象还是普通类型
       if (typeof obj[i] == "object") {
-        object[i] = deepCopy(obj[i])
+        object[i] = deepCopy(obj[i]);
       } else {
         object[i] = obj[i];
       }
     }
     return object;
   }
-  console.log('------');
+  console.log("------");
 
   console.log(deepCopy(info));
 
@@ -94,29 +104,34 @@
   Object.assign(target, info);
   console.log(target);
 
+  //实现的也是浅复制
+
   function mergeObj(target, obj) {
-    if (typeof obj != 'object') {
-      return 'need a object'
+    if (typeof obj != "object") {
+      return "need a object";
     }
     var object = target;
     for (var i in obj) {
       //判断是对象还是普通类型
       if (typeof obj[i] == "object") {
-        object[i] = deepCopy(obj[i])
+        object[i] = deepCopy(obj[i]);
       } else {
         object[i] = obj[i];
       }
     }
     return object;
   }
-  var heyushuo = mergeObj({
-    "a": "sdfsadfsdf",
-    name: "2123123"
-  }, {
-    "c": '2323',
-    "d": '8989',
-    "name": 'sdf'
-  })
+  var heyushuo = mergeObj(
+    {
+      a: "sdfsadfsdf",
+      name: "2123123"
+    },
+    {
+      c: "2323",
+      d: "8989",
+      name: "sdf"
+    }
+  );
 
   console.log(heyushuo);
 </script>
