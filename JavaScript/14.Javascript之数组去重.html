@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //1.利用对象的属性不能相同的特点进行去重(兼容性好)
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    var array = [];
+    var obj = {};
+    for (var i = 0; i < arr.length; i++) {
+        if (!obj[arr[i]]) {
+            obj[arr[i]] = true;
+            array.push(arr[i])
+        }
+    }
+    console.log(array); //[1, 6, 4, 2, "a"]
+    //2.双层循环 (兼容性好)
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    var array = [];
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < array.length; j++) {
+            if (arr[i] == array[j]) {
+                break;
+            }
+        }
+        //如果这两个数相等说明循环完了,没有相当的元素
+        if (j == array.length) {
+            array.push(arr[i])
+        }
+    }
+    console.log(array);
+    //3.利用indexOf()
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    var array = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (array.indexOf(arr[i]) == -1) {
+            array.push(arr[i])
+        }
+    }
+    console.log(array);
+    //4.利用forEach和indexOf()
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    var array = [];
+    arr.forEach(function (item, index) {
+        if (array.indexOf(item) == -1) {
+            array.push(item)
+        }
+    })
+    console.log(array);
+    //5.利用filter()和indexOf()
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    var array = arr.filter(function (item, index) {
+        return arr.indexOf(item) == index;
+    })
+    console.log(array);
+    // 6.ES6的new Set()实现去重
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    //第一种
+    var newarr = Array.from(new Set(arr));
+    console.log(newarr); //[1, 6, 4, 2, "a"]
+    //第二种
+    var newarr1 = [...new Set(arr)];
+    console.log(newarr1); //[1, 6, 4, 2, "a"]
+
+    //8.ES6的includes实现去重
+    var arr = [1, 6, 4, 6, 6, 4, 2, "a", "a"];
+    var array = [];
+    arr.forEach(function (item, index) {
+        if (!array.includes(item)) {
+            array.push(item)
+        }
+    })
+    console.log(array); //[1, 6, 4, 2, "a"]
+</script>
