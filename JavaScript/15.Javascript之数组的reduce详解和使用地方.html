@@ -55,4 +55,18 @@
         }
     })
     console.log(aa) //["d", 7]
+
+    //有两个数组，现在一个数组中每两个插入另外数组一个值
+
+    var a1 = [1, 2, 3, 4, 6, 7, 8, 9, 10];
+    var a2 = ['a', 'b', 'c', 'd', 'e']
+
+    var result = a1.reduce(function (init, item, index) {
+        if (index % 2 == 0 && index != 0) {
+            init.push(a2.shift());
+        }
+        init.push(item);
+        return init;
+    }, [])
+    console.log(result);
 </script>
