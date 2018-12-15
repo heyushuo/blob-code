@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //合并二维数组
+    var newArr = [
+        [1, 2, 3],
+        ['a', 'b', 'c'],
+        [9, 10]
+    ]
+    var result = newArr.reduce(function (init, item, index) {
+        return init.concat(item)
+    }, []);
+    console.log(result); //[1, 2, 3, "a", "b", "c", 9, 10]
+
+    var arr1 = [
+        [0, 1],
+        [2, 3],
+        [4, 5]
+    ];
+    var arr2 = [].concat.apply([], arr1);
+    console.log(arr2); // [0, 1, 2, 3, 4, 5]
+
+    //找到字符串中每个值的个数
+    let arr = 'bcdaabcddddddweeeee';
+    // (p, k) => (p[k]++ || (p[k] = 1), p)
+    let info = arr.split('').reduce(function (init, item) {
+        if (init[item]) {
+            init[item]++
+        } else {
+            init[item] = 1
+        }
+        return init;
+    }, {});
+    console.log(info);
+    var max = Object.entries(info);
+    console.log(max);
+    var aa = max.reduce(function (pre, next) {
+        if (pre[1] > next[1]) {
+            return pre
+        } else {
+            return next
+        }
+    })
+    console.log(aa) //["d", 7]
+</script>
