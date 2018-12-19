@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+        <h1>测试测试</h1>
+
+        <h1>测试测试</h1>
+    </div>
+</body>
+
+</html>
+<script>
+    // throttle 和 debounce 的应用场景应该是分的很清楚的
+    // 按一个按钮发送 AJAX： 给 click 加了 debounce 后就算用户不停地点这个按钮， 也只会最终发送一次； 如果是 throttle 就会间隔发送几次
+    // 监听滚动事件判断是否到页面底部自动加载更多： 给 scroll 加了 debounce 后， 只有用户停止滚动后， 才会判断是否到了页面底部； 如果是 throttle 的话， 只要页面滚动就会间隔一段时间判断一次
+
+    //一. 函数防抖动(debounce)
+    // 在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。
+
+    function debounce(func, time) {
+        var timeout;
+        return function () {
+            var _this = this;
+            var args = arguments;
+            //清除定时器
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                func.apply(_this, args); //1.解决this指向.  2.解决event对象
+            }, time);
+        }
+    }
+
+    function scrollEvent() {
+        var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop; //滚动高度
+        var viewPortHeight = window.innerHeight || document.documentElement.clientHeight; //可视区的高度
+        var docHeight = document.documentElement.scrollHeight; //document.documentElement.offsetHeight 整个网页文档的高度
+        if (scrollTop + viewPortHeight > docHeight - 20) {
+            console.log("heyusuo");
+        }
+    }
+    var optimize = debounce(scrollEvent, 200)
+    document.addEventListener('scroll', function () {
+        optimize()
+    })
+    //使用场景
+    // 监听滚动事件判断是否到页面底部自动加载更多： 给 scroll 加了 debounce 后， 只有用户停止滚动后， 才会判断是否到了页面底部；
+    // 模糊匹配或者模糊搜索都可以使用防抖动,当用户输入完了开始调ajax获取数据(例如keyup事件)
+    //二.节流
+    // 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
+
+    // 节流的实现，有两种主流的实现方式，一种是使用时间戳，一种是设置定时器。
+    // 第一版
+    function throttle(func, wait) {
+        var resulTime = 0;
+        return function () {
+            var now = +new Date();
+            var _this = this;
+            var args = arguments;
+            if (now - resulTime > wait) {
+                func.apply(_this, args);
+                resulTime = now;
+            }
+        }
+    }
+    //第一次会立即执行,在wait时间内在执行是无效的
+    // function throttle(func, wait) {
+    //     var timeout;
+    //     return function () {
+    //         var _this = this;
+    //         var args = arguments;
+    //         if (!timeout) {
+    //             timeout = setTimeout(function () {
+    //                 func.apply(_this, args);
+    //                 timeout = null;
+    //             }, wait)
+    //         }
+    //     }
+    // }
+    //时间不会立即执行,在wait时间后开始执行
+    // 所以比较两个方法：
+
+    // 第一种事件会立刻执行， 第二种事件会在 n 秒后第一次执行
+    // 第一种事件停止触发后没有办法再执行事件， 第二种事件停止触发后依然会再执行一次事件
+
+    function scrollThrottle() {
+        console.log('heyushuo')
+    }
+    var optimizeThrottle = throttle(scrollThrottle, 3000);
+    document.addEventListener('scroll', function () {
+        optimizeThrottle()
+    })
+
+    //使用场景
+    // 按一个按钮发送 AJAX： 给 click 加了 throttle用户单位时间内点击多次,也只会发送一次
+</script>
