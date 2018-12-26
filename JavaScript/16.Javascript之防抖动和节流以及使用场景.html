@@ -87,6 +87,7 @@
     }
     var optimize = debounce(scrollEvent, 200)
     document.addEventListener('scroll', function () {
+        //停止滚动之后开始计算
         optimize()
     })
     //使用场景
@@ -96,7 +97,7 @@
     // 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
 
     // 节流的实现，有两种主流的实现方式，一种是使用时间戳，一种是设置定时器。
-    // 第一版
+    // 第一种使用时间戳(第一次会立即执行,在wait时间内在执行是无效的)
     function throttle(func, wait) {
         var resulTime = 0;
         return function () {
@@ -109,21 +110,21 @@
             }
         }
     }
-    //第一次会立即执行,在wait时间内在执行是无效的
-    // function throttle(func, wait) {
-    //     var timeout;
-    //     return function () {
-    //         var _this = this;
-    //         var args = arguments;
-    //         if (!timeout) {
-    //             timeout = setTimeout(function () {
-    //                 func.apply(_this, args);
-    //                 timeout = null;
-    //             }, wait)
-    //         }
-    //     }
-    // }
-    //时间不会立即执行,在wait时间后开始执行
+    //第二种设置定时器(时间不会立即执行,在wait时间后开始执行)
+    function throttle(func, wait) {
+        var timeout;
+        return function () {
+            var _this = this;
+            var args = arguments;
+            if (!timeout) {
+                timeout = setTimeout(function () {
+                    func.apply(_this, args);
+                    timeout = null;
+                }, wait)
+            }
+        }
+    }
+    //
     // 所以比较两个方法：
 
     // 第一种事件会立刻执行， 第二种事件会在 n 秒后第一次执行
@@ -139,4 +140,5 @@
 
     //使用场景
     // 按一个按钮发送 AJAX： 给 click 加了 throttle用户单位时间内点击多次,也只会发送一次
+    // 使用场景其实没有特定一说还是根据具体的需求来选择是时候抖动还是使用节流
 </script>
