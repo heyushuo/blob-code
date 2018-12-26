@@ -6,3 +6,4 @@
 - [ ] **Javascript 数据类型判断**
 - [ ] **从 URL 输入到页面展现到底发生什么？**
 - [ ] **Javascript 数据类型判断**
+- [ ] **Javascript 之 this 指向**
