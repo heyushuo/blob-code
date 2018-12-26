@@ -108,4 +108,38 @@
         return init;
     }, []);
     console.log(result);
+
+    //5.使用reduce如何实现ES6的flat()方法呢?
+    var doubleArray = [1, 2, [3, [4, 5]]];
+    console.log(doubleArray.flat(2))
+
+    function flat(arr) {
+        var result = [];
+        arr.reduce(function (init, item) {
+            if (Array.isArray(item)) {
+                // result = result.concat(flat(item))
+                result.push(...flat(item))
+            } else {
+                result.push(item)
+            }
+            return init;
+        }, [])
+        return result
+    }
+
+    // 
+
+    // function flat(array) {
+    //     var result = [];
+    //     for (let i = 0; i < array.length; i++) {
+    //         var item = array[i]
+    //         if (Array.isArray(item)) {
+    //             result = result.concat(flat(item));
+    //         } else {
+    //             result.push(item)
+    //         }
+    //     }
+    //     return result
+    // }
+    console.log(flat(doubleArray));
 </script>
