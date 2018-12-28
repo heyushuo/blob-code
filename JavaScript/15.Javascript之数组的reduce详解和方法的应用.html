@@ -114,17 +114,9 @@
     console.log(doubleArray.flat(2))
 
     function flat(arr) {
-        var result = [];
-        arr.reduce(function (init, item) {
-            if (Array.isArray(item)) {
-                // result = result.concat(flat(item))
-                result.push(...flat(item))
-            } else {
-                result.push(item)
-            }
-            return init;
+        return arr.reduce(function (init, item) {
+            return init.concat(Array.isArray(item) ? flat(item) : item)
         }, [])
-        return result
     }
 
     // 
