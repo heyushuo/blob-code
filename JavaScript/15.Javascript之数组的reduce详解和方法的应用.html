@@ -45,19 +45,17 @@
         return init.concat(item);
     }, []);
     console.log(result); //[1, 2, 3, "a", "b", "c", 9, 10]
-    //如下也可以合并二维数组
-    var arr1 = [
-        [0, 1],
-        [2, 3],
-        [4, 5]
-    ];
-    var arr2 = [].concat.apply([], arr1);
-    console.log(arr2); // [0, 1, 2, 3, 4, 5]
+    //可以使用ES5的方法实现
+    var arr2 = [].concat.apply([], newArr);
+    console.log(arr2); //[1, 2, 3, "a", "b", "c", 9, 10]
+    //可以使用ES6的方法实现
+    var arr3 = newArr.flat();
+    console.log(arr3); //[1, 2, 3, "a", "b", "c", 9, 10]
 
     //2.找到字符串中每个字母出现的次数
-    let arr = "bcdaabcddddddweeeee";
+    var arr = "bcdaabcddddddweeeee";
     // (p, k) => (p[k]++ || (p[k] = 1), p)
-    let info = arr.split("").reduce(function (init, item) {
+    var info = arr.split("").reduce(function (init, item) {
         if (init[item]) {
             init[item]++;
         } else {
@@ -70,32 +68,28 @@
     //找到最大的那一项
     var max = Object.entries(info);
     var maxArr = max.reduce(function (pre, next) {
-        if (pre[1] > next[1]) {
-            return pre;
-        } else {
-            return next;
-        }
+        return pre[1] > next[1] ? pre : next;
     });
     console.log(maxArr); //["d", 7]
-    // 3.找出下边数组对象中age大于30的
+    // 3.求下方数组中所有score的和
     var filterArr = [{
         name: "liming",
-        age: 31
+        age: 31,
+        score: 100
     }, {
         name: "kebi",
-        age: 36
+        age: 36,
+        score: 60
     }, {
         name: "heyushuo",
-        age: 26
+        age: 26,
+        score: 40
     }]
 
     var result = filterArr.reduce(function (init, item) {
-        if (item.age > 30) {
-            init.push(item);
-        }
-        return init;
-    }, [])
-    console.log(JSON.stringify(result)) // [{"name":"liming","age":31},{"name":"kebi","age":36}]
+        return init + item.score;
+    }, 0)
+    console.log(result) // 200
     //4.有两个数组，现在一个数组中每两个插入另外数组一个值
     var a1 = [1, 2, 3, 4, 6, 7, 8, 9, 10];
     var a2 = ["a", "b", "c", "d", "e"];
