@@ -82,7 +82,7 @@
         var viewPortHeight = window.innerHeight || document.documentElement.clientHeight; //可视区的高度
         var docHeight = document.documentElement.scrollHeight; //document.documentElement.offsetHeight 整个网页文档的高度
         if (scrollTop + viewPortHeight > docHeight - 20) {
-            console.log("heyusuo");
+            console.log("滚动到底部了");
         }
     }
     var optimize = debounce(scrollEvent, 200)
