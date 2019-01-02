@@ -138,7 +138,7 @@
     for (var i in obj) {
       //判断是对象还是普通类型
       if (typeof obj[i] == "object") {
-        object[i] = deepCopy(obj[i]);
+        object[i] = mergeObj(obj[i]);
       } else {
         object[i] = obj[i];
       }
