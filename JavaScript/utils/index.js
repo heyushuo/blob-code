@@ -197,3 +197,14 @@ var RAF = (function () {
       window.setTimeout(cb, 1000 / 60);
     };
 })();
+
+
+const IS_NUMBER = /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/; //是否是数字
+const isInteger = /^\+?[1-9][0-9]*$/; //是否是正整数
+const isInteger = /^-?\\d+$/; //是否是整数
+const isChinese = /^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/; //是否是汉字
+const IS_PHONE = /^$|^1[3456789]\d{9}$/; //手机号
+const IS_IDCARD = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/; //身份证
+const isiOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+const isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
+const isWX = navigator.userAgent.indexOf('MicroMessenger') > -1;
