@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  // 这段代码的核心是 modules[name] = impl.apply(impl, deps)。 为了模块的定义引入了包装
+  // 函数（ 可以传入任何依赖）， 并且将返回值， 也就是模块的 API， 储存在一个根据名字来管
+  // 理的模块列表中
+  var myModules = (function () {
+    var modules = {};
+    //定义一个模块,name:模块名字 , deps :所依赖的模块 , impl:模块里的内容
+    function define(name, deps, impl) {
+      for (var i = 0; i < deps.length; i++) {
+        deps[i] = modules[deps[i]]
+      }
+      modules[name] = impl.apply(impl, deps)
+    }
+
+    function get(name) {
+      return modules[name];
+    }
+    return {
+      define: define,
+      get: get
+    }
+  })()
+  console.log(myModules);
+
+
+  //现在用上边函数定义一个模块
+
+  myModules.define("bar", [], function () {
+    function hello(name) {
+      return 'welecome' + name
+    }
+    return {
+      hello: hello
+    }
+  })
+  myModules.define("foo", ["bar"], function (bar) {
+    var hungry = "hippo";
+
+    function awesome() {
+      return bar.hello(hungry).toUpperCase();
+    }
+    return {
+      awesome: awesome
+    };
+  });
+  console.log(myModules.get('bar'));
+  console.log(myModules.get('foo').awesome());
+</script>
