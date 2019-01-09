@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body></body>
+
+</html>
+<script>
+  //JavaScript中变量是没有类型的,只有值才有类型
+  // undefined  null boolean object string number symbol
+  // undefined 和 undeclared（未声明）两码事情
+  // 已在作用域中声明但还没有赋值的变量，是 undefined 的。相反，还没有在作用域中声明过的变量，是 undeclared 的。
+
+  // var a;
+  // a; // undefined
+  // b; // ReferenceError: b is not defined
+
+  var obj = {
+    0: 'hello',
+    1: 'world',
+    length: 2
+  };
+
+  function likeArray() {
+    return Array.prototype.slice.call(arguments)
+  }
+  console.log(Array.prototype.slice.call(obj));
+  console.log([].slice.call(obj));
+  console.log(Array.from(obj));
+
+  var a = "foo";
+  var b = ["f", "o", "o"];
+  console.log(a.indexOf('f'));
+  console.log(b.indexOf('f'));
+  var c = a.concat("bar"); // "foobar"
+  var d = b.concat(["b", "a", "r"]); // ["f","o","o","b","a","r"]
+
+  // JavaScript 中字符串是不可变的，而数组是可变的。
+  a[1] = "O"; //字符串不会修改
+  b[1] = "O"; //数组会变化
+  // 要想获取到字符串中的某个值  默认取第一个
+  console.log(a.charAt(1));
+  console.log(b.join('-'));
+  //许多数组函数用来处理字符串很方便。虽然字符串没有这些函数，但可以通过“借用”数组的非变更方法来处理字符串
+  console.log(Array.prototype.join.call(a, '-'));
+  b.reverse()
+  console.log(a.split(''));
+
+  a.split('').reverse().join("");
+
+  // 返回 4 的 3 次幂 (4*4*4):
+
+  Math.pow(4, 3);
+  var c = 0.1 + 0.2;
+  console.log(typeof c);
+
+  if (!Number.EPSILON) {
+    Number.EPSILON = Math.pow(2, -52);
+  }
+
+  function numbersCloseEnoughToEqual(n1, n2) {
+    return Math.abs(n1 - n2) < Number.EPSILON;
+  }
+
+  // 要检测一个值是否是整数，可以使用 ES6 中的 Number.isInteger(..) 方法：
+  console.log(Number.isInteger(42)); //ture
+  // polyfill Number.isInteger(..) 方法：
+  if (!Number.isInteger) {
+    Number.isInteger = function (num) {
+      return typeof num == "number" && num % 1 == 0;
+    };
+  }
+  // null 指空值（empty value）一个占位符  null 指曾赋过值，但是目前没有值
+  // undefined 指没有值（missing value） undefined 指从未赋值
+  //NaN不是数字的数字 NaNs是个特殊值.自己和自己也不相等
+  // NaN != NaN   确实true
+  var a = 2 / "foo"; // NaN
+  typeof a === "number"; // true
+
+  var a = 2 / "foo";
+  var b = 'foo'
+  isNaN(a); // true
+  console.log(isNaN(a));
+  console.log(isNaN(b));
+  console.log(Number.isNaN(b));
+  // 对负零进行字符串化会返回 "0"
+  a.toString(); // "0
+  a + ""; // "0
+  String(a); // "0"
+
+  //判断是否是-0
+
+  function isNegZero(n) {
+    n = Number(n);
+    return n === 0 && (1 / n === -Infinity)
+  }
+
+  //ES6 中新加入了一个工具方法 Object.is(..) 来判断两个值是否绝对相等
+  var a = 2 / "foo";
+  var b = -3 * 0;
+  Object.is(a, NaN); // true
+  Object.is(b, -0); // true
+  Object.is(b, 0); // false
+  // 对于 ES6 之前的版本， Object.is(..) 有一个简单的 polyfill：
+  if (!Object.is) {
+    Object.is = function (v1, v2) {
+      // 判断是否是-0
+      if (v1 === 0 && v2 === 0) {
+        return 1 / v1 === 1 / v2;
+      }
+      // 判断是否是NaN
+      if (v1 !== v1) {
+        return v2 !== v2;
+      }
+      // 其他情况
+      return v1 === v2;
+    };
+  }
+
+  //  常用的原生函数有：
+  // • String()
+  // • Number()
+  // • Boolean()
+  // • Array()
+  // • Object()
+  // • Function()
+  // • RegExp()
+  // • Date()
+  // • Error()
+  // • Symbol()——ES6 中新加入的！
+  //new String("abc") 创建的是字符串 "abc" 的封装对象，而非基本类型值 "abc"。
+  var a = new String("abc");
+  typeof a; // 是"object"，不是"String"
+  a instanceof String; // true
+  Object.prototype.toString.call(a); // "[object String]"
+
+
+  // 如果想要自行封装基本类型值，可以使用 Object(..) 函数（不带 new 关键字）
+  var a = "abc";
+  var b = new String(a);
+  var c = Object(a);
+  typeof a; // "string"
+  typeof b; // "object"
+  typeof c; // "object"
+  b instanceof String; // true
+  c instanceof String; // true
+  Object.prototype.toString.call(b); // "[object String]"
+  Object.prototype.toString.call(c); // "[object String]"
+
+  var a = Array.apply(null, {
+    length: 3
+  });
+  a; // [ undefined, undefined, undefined ]
+
+
+  // String.prototype.indexOf(..)
+  // 在字符串中找到指定子字符串的位置。
+  // String.prototype.charAt(..)
+  // 获得字符串指定位置上的字符。
+
+  //str.substr(3,7) 从3开始取7个     str.substring(3,7) 从3到7
+  // String.prototype.substr(..)、String.prototype.substring(..) 和 String.prototype.slice(..)
+  // 获得字符串的指定部分。 
+  // String.prototype.toUpperCase() 和 String.prototype.toLowerCase()
+  // 将字符串转换为大写或小写。
+  // String.prototype.trim()
+  // 去掉字符串前后的空格，返回新的字符串。
+  // 以上方法并不改变原字符串的值，而是返回一个新字符串
+  // 以上方法并不改变原字符串的值，而是返回一个新字符串
+  // 以上方法并不改变原字符串的值，而是返回一个新字符串
+</script>

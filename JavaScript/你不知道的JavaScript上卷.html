@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+</html>
+<script>
+  //
+  //  1. 函数是否在 new 中调用（new 绑定）？如果是的话 this 绑定的是新创建的对象。
+  // var bar = new foo()
+  // 2. 函数是否通过 call、apply（显式绑定）或者硬绑定调用？如果是的话，this 绑定的是
+  // 指定的对象。
+  // var bar = foo.call(obj2)
+  //   3. 函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上
+  // 下文对象。
+  // var bar = obj1.foo()
+  // 4. 如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到 undefined，否则绑定到
+  // 全局对象。
+  // var bar = foo()
+  var a = 'heyushuo';
+  function baz() {
+    console.log('baz');
+    var a = 2;
+    bar();
+  }
+
+  function bar() {
+    console.log('bar');
+    //会用的默认绑定?
+    console.log(this.a);
+    foo();
+  }
+
+  function foo() {
+    console.log('foo');
+  }
+
+  baz(); //
+  //apply实现bind方法
+  function bind(fn, obj) {
+    return function() {
+      fn.apply(obj, arguments);
+    };
+  }
+
+  var obj = {
+    name: 'heyushuo'
+  };
+  object.definePrototype(obj, 'name', {
+    value: 42,
+    writable: true,
+    configurable: true,
+    enumerable: true
+  });
+  //  obj.a 的属性访问返回值可能是 undefined，但是这个值有可能
+  // 是属性中存储的 undefined，也可能是因为属性不存在所以返回 undefined。
+  'a' in myObject; // true
+  obj.hasOwnProperty('name'); // true
+  // in 操作符会检查属性是否在对象及其 [[Prototype]] 原型链中
+  // hasOwnProperty(..) 只会检查属性是否在 myObject 对象中，不会检查 [[Prototype]] 链。
+
+  // 也可以通过另外一种方式
+  Object.prototype.hasOwnProperty.call(obj, 'name');
+
+  // Object.keys(..) 会返回一个数组,包含所有可枚举属性,Object.getOwnPropertyNames(..)会返回一个数组,包含所有属性,无论是否可枚举
+  //   in 和 hasOwnProperty(..) 的区别在于是否查找 [[Prototype]] 链，然而，Object.keys(..)
+  // 和 Object.getOwnPropertyNames(..) 都只会查找对象直接包含的属性。
+
+  //迭代器
+  Symbol.iterator;
+
+  //显示混入
+  function mixin(sourceObj, targetObj) {
+    for (var key in sourceObj) {
+      if (!targetObj.hasOwnProperty(key)) {
+        targetObj[key] = sourceObj[key];
+      }
+    }
+    return targetObj;
+  }
+
+  //or..in 遍历对象时原理和查找 [[Prototype]] 链类似，任何可以通过原型链访问到
+  //（并且是 enumerable，参见第 3 章）的属性都会被枚举。
+  var anotherObj = {
+    a: 2
+  };
+
+  var myObject = Object.create(anotherObj);
+  for (var j in myObject) {
+    console.log('found:' + k);
+  }
+
+  // found: a
+  //("a" in myObject); // true
+  //当你通过各种语法进行属性查找时都会查找 [[Prototype]] 链，直到找到属性或者查找完整条原型链。
+  //[[Prototype]] 的“尽头”是 Object.prototype
+  //需要在 Foo.prototype 上“修复”丢失的 .constructor 属性
+  Object.defineProperty(Foo.prototype, 'constructor', {
+    enumerable: false,
+    writable: true,
+    configurable: true,
+    value: Foo
+  });
+
+  // 在 a 的整条 [[Prototype]] 链中是否出现过 Foo.prototype ？
+  FOo.prototype.isPrototypeOf(a);
+  b.isPrototypeOf(a);
+  // ES5提供另外一个方法 getPrototypeOf
+  Object.getPrototypeOf(a);
+  Object.getPrototypeOf(a) === Foo.prototype; // true
+
+  // a.__proto__ === Foo.prototype; // true
+
+  // polyfill 代码兼容写法
+  if (!Object.create) {
+    Object.create = function(o) {
+      function F() {}
+      F.prototype = o;
+      return new F();
+    };
+  }
+</script>
