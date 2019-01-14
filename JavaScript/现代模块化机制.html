@@ -61,3 +61,64 @@
   console.log(myModules.get('bar'));
   console.log(myModules.get('foo').awesome());
 </script>
+
+<script>
+  var arr = [{
+      name: 'heyushuo',
+      age: 12
+    },
+    {
+      name: 'minggang',
+      age: 12
+    },
+    {
+      name: 'heyushuo',
+      age: 33
+    }, {
+      name: 'minggang',
+      age: 66
+    },
+  ];
+
+  // var newArr = ["heyushuo"];
+  // arr.map(function (item, inex) {
+  //   newArr.push(item.name);
+  // })
+  // console.log(newArr);
+
+  // var heyushuo = arr.filter(function (item, index) {
+  //   return newArr.lastIndexOf(item.name) != -1
+  // })
+
+  // var obj = {};
+  // var newArr = [];
+  // var arr = arr.reverse()
+  // arr.map(function (item, inex) {
+  //   if (!obj[item.name]) {
+  //     newArr.push(item);
+  //     obj[item.name] = 1;
+  //   }
+  // })
+
+
+  // console.log(newArr);
+
+
+  // var newArr = [];
+  // var middle = [];
+  // var arr = arr.reverse()
+  // arr.map(function (item, inex) {
+  //   if (middle.indexOf(item.name) == -1) {
+  //     newArr.push(item);
+  //     middle.push(item.name)
+  //   }
+  // })
+  // console.log(newArr);
+
+  var obj = {};
+  var heyuhsuo = arr.reduce(function (init, item) {
+    obj[item.name] ? '' : obj[item.name] = true && init.push(item);
+    return init;
+  }, []);
+  console.log(heyuhsuo);
+</script>
