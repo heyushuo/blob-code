@@ -9,6 +9,7 @@ Object.prototype.types = function () {
     '[object Boolean]': 'boolean',
     '[object Number]': 'number',
     '[object String]': 'string',
+    '[object Symbol]': 'symbol',
     '[object Function]': 'function',
     '[object Array]': 'array',
     '[object Date]': 'date',
@@ -24,6 +25,7 @@ Object.prototype.types = function () {
     '[object Set]': 'set',
     '[object WeakMap]': 'weakMap'
   };
+  console.log(this);
   var el = this instanceof Element ? 'element' : map[toString.call(this)];
   return el;
 };
