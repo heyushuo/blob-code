@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1>A practical guide to writing more functional JavaScript</h1>
+  <p>Functional programming is great. With the introduction of React, more and more JavaScript front-end code is being
+    written with FP principles in mind. But how do we start using the FP mindset in everyday code we write? I’ll
+    attempt to use an everyday code block and refactor it step by step.</p>
+  <p>Our problem: A user who comes to our /login page will optionally have a redirect_to query parameter. Like
+    /login?redirect_to=%2Fmy-page. Note that %2Fmy-page is actually /my-page when it’s encoded as the part of the URL.
+    We need to extract this query string, and store it in local storage, so that once the login is done, user can be
+    redirected to the my-page.</p>
+  <h1>Step #1:The imperative approach</h1>
+  <p>If we had to express the solution in the simplest form of issuing a list of commands, how would we write it? We
+    will need to</p>
+  <p>1.Parse the query string.</p>
+  <p>2.Get the redirect_to value.</p>
+  <p>3.Decode that value.</p>
+  <p>4.Store the decoded value in localStorage.</p>
+
+  <p>And we have to put try catch blocks around “unsafe” functions as well. With all of that, our code block will look
+    like:
+  </p>
+  <h1>Writing every step as a function</h1>
+  <p>For a moment, let’s forget the try catch blocks and try expressing everything as a function here.</p>
+  <p>When we start expressing all of our “outcomes” as results of functions, we see what we can refactor out of our
+    main function body. When that happens, our function becomes much easier to grok, and much easier to test.</p>
+  <p>Earlier, we would have tested the main function as a whole. But now, we have 4 smaller functions, and some of them
+    are just proxying other functions, so the footprint that needs to be tested is much smaller.</p>
+  <p>Let’s identify these proxying functions, and remove the proxy, so we have a little bit less code.</p>
+  <h1>Step #2:An attempt at composing functions</h1>
+  <p>Alright. Now, it seems like the persistRedirectToParams function is a “composition” of 4 other functions. Let’s
+    see whether we can write this function as a composition, thereby eliminating the interim results we store as
+    consts.</p>
+  <p>This is good. But I feel for the person who reads this nested function call. If there was a way to untangle this
+    mess, that’d be awesome.</p>
+  <h1>Step #3: A more readable composition</h1>
+  <p>If you’ve done some redux or recompose, you’d have come across compose. Compose is a utility function which
+    accepts multiple functions, and returns one function that calls the underlying functions one by one. There are
+    other excellent sources to learn about composition, so I won’t go into detail about that here.</p>
+  <p>With compose, our code will look like:</p>
+  <p>One thing with compose is that it reduces functions right-to-left. So, the first function that gets invoked in the
+    compose chain is the last function.</p>
+  <p>This is not a problem if you’re a mathematician, and are familiar with the concept, so you naturally read this
+    right-to-left. But for the rest of us familiar with imperative code, we would like to read this left-to-right.</p>
+  <h1>Step #4: Piping and flattening</h1>
+  <p>Luckily, there’s pipe. pipe does the same thing that compose does, but in reverse. So, the first function in the
+    chain is the first function processing the result.</p>
+  <p>Also, it seems as if our persistRedirectToParams function has become a wrapper for another function that we call
+    op. In other words, all it does is execute op. We can get rid of the wrapper and “flatten” our function.</p>
+  <p>Almost there. Remember, that we conveniently left our try-catch block behind to get this to the current state?
+    Well, we need some way to introduce it back. qs.parse is unsafe as well as storeRedirectToQuery. One option is to
+    make them wrapper functions and put them in try-catch blocks. The other, functional way is to express try-catch as
+    a function.</p>
+  <h1>Step #5: Exception handling as a function</h1>
+  <p>There are some utilities which do this, but let’s try writing something ourselves.</p>
+  <p>Our function here expects an opts object which will contain tryer and catcher functions. It will return a function
+    which, when invoked with arguments, call the tryer with the said arguments and upon failure, call the catcher. Now,
+    when we have unsafe operations, we can put them in the tryer section and if they fail, rescue and give a safe
+    result from the catcher section (and even log the error).</p>
+  <h1>Step #6: Putting everything together</h1>
+  <p>So, with that in mind, our final code looks like:</p>
+  <p>This is more or less what we want. But to make sure the readability and testability of our code improves, we can
+    factor out the “safe” functions as well.</p>
+
+  <p>Now, what we’ve got is an implementation of a much larger function, consisting of 4 individual functions that are
+    highly cohesive, loosely coupled, can be tested independently, can be re-used independently, account for exception
+    scenarios, and are highly declarative. (And IMO, they’re a tad bit nicer to read.)</p>
+  <p>There’s some FP syntactic sugar that makes this even nicer, but that’s for another day.</p>
+</body>
+
+</html>
