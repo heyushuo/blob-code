@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
 
-  <body></body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body></body>
+
 </html>
 <script>
   /**
@@ -64,7 +66,7 @@
   var str = new String('kebi');
   var obj = {};
   var arr = [1, 2, 3, 4];
-  var fun = function() {};
+  var fun = function () {};
   var reg = /kebi/;
   var date = new Date();
   console.log(num instanceof Number); //true
@@ -100,7 +102,7 @@
   // 1. 先判断arr.__proto__（ Array.prototype） === Object.prototype 不等于接着循环
   // 2. Array.prototype.__proto__ === Object.prototype 恒等返回true
 
-  // 所有的引用类型默认都继承了Object，这个继承是通过原型链实现的，默认原型都会包含一个内部指针,指向 Object.prototype
+
   // [点击深入理解instanceof内部实现](https: //www.ibm.com/developerworks/cn/web/1306_jiangjj_jsinstanceof/index.html)
   // 综上得出结论 instanceof也不能完全解决问题，无法区分普通对象{}
   // ES5中又增加的一个方法 Array.isArray(arr) 专门判断是否是数组的方法但是可以判断基本的对象类型
@@ -114,7 +116,7 @@
   var flag = true;
   var obj = {};
   var arr = [1, 2, 3, 4];
-  var fun = function() {};
+  var fun = function () {};
   var reg = /kebi/;
   var date = new Date();
   console.log('-----------------');
@@ -134,7 +136,7 @@
   // 对于 Object 对象，直接调用 toString()  就能返回 [object Object] 。而对于其他对象，则需要通过 call / apply 来调用才能返回正确的类型信息。
   // Object.prototype.toString()是javascript中判断类型最准确的方式了，代码如下
 
-  Object.prototype.judgeTypes = function() {
+  Object.prototype.judgeTypes = function () {
     var toString = Object.prototype.toString;
     var map = {
       '[object Boolean]': 'boolean',
