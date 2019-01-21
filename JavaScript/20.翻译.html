@@ -5,7 +5,6 @@
   <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,7 +16,7 @@
     /login?redirect_to=%2Fmy-page. Note that %2Fmy-page is actually /my-page when it’s encoded as the part of the URL.
     We need to extract this query string, and store it in local storage, so that once the login is done, user can be
     redirected to the my-page.</p>
-  <h1>Step #1:The imperative approach</h1>
+  <h1>Step #0:The imperative approach</h1>
   <p>If we had to express the solution in the simplest form of issuing a list of commands, how would we write it? We
     will need to</p>
   <p>1.Parse the query string.</p>
@@ -28,7 +27,7 @@
   <p>And we have to put try catch blocks around “unsafe” functions as well. With all of that, our code block will look
     like:
   </p>
-  <h1>Writing every step as a function</h1>
+  <h1>Step #1:Writing every step as a function</h1>
   <p>For a moment, let’s forget the try catch blocks and try expressing everything as a function here.</p>
   <p>When we start expressing all of our “outcomes” as results of functions, we see what we can refactor out of our
     main function body. When that happens, our function becomes much easier to grok, and much easier to test.</p>
@@ -77,3 +76,34 @@
 </body>
 
 </html>
+<script src="./utils/qs.js"></script>
+<script>
+  const getRedirectToParam = (parsedQuery) => parsedQuery.redirect_to;
+
+  // we have to re-write this a bit to return a result.
+  const storeRedirectToQuery = (redirectTo) => {
+    localStorage.setItem("REDIRECT_TO", redirectTo)
+    return redirectTo;
+  };
+  var parse = function () {
+    console.log('格式化连接后的参数');
+    return {
+      'redirect_to': '/home-page'
+    }
+
+  }
+
+  function persistRedirectToParam() {
+    const decoded = storeRedirectToQuery(
+      decodeURIComponent(
+        getRedirectToParam(
+          parse(window.location.search)
+        )
+      )
+    )
+
+    return decoded;
+  }
+
+  console.log(persistRedirectToParam());
+</script>
