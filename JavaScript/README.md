@@ -1,7 +1,6 @@
 - [ ] **Javascript 高阶函数**
 - [ ] **Javascript 事件机制**
 - [ ] **Promise 原理(js 中异步)**
-- [ ] **Javascript 数据类型判断**
 - [ ] **从 URL 输入到页面展现到底发生什么？**
 - [√] **Javascript 数据类型判断**
 - [ ] **为什么操作 DOM 消耗性能?**
