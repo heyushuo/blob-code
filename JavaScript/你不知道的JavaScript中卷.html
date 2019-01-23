@@ -210,7 +210,33 @@
   var c = new String("");
   // 以上都是true
 
-  console.log(Date.now());
-  console.log(new Date().getTime());
-  console.log(+new Date());
+  // console.log(Date.now());
+  // console.log(new Date().getTime());
+  // console.log(+new Date());
+
+
+
+
+  function heyushuo() {
+    this.name = "heyushuo";
+    this.age = 32
+  }
+  heyushuo.prototype.say = function () {
+    console.log(this);
+  }
+
+  var aa = new heyushuo();
+
+  console.log(aa);
+
+
+
+  function kebi() {
+    console.log(this);
+  }
+  Function.prototype.ceshi = function () {
+    console.log(this);
+  }
+
+  kebi.ceshi()
 </script>
