@@ -239,4 +239,18 @@
   }
 
   kebi.ceshi()
+  console.log(kebi);
+
+  kebi.__proto__.ceshi()
+
+
+  Object.prototype.ceshi = function () {
+    console.log(this);
+  }
+  kebi.ceshi();
+  [1, 2, 3].ceshi();
+  [1, 2, 3].__proto__.ceshi();
+  console.log([1, 2, 3]);
+
+  kebi.__proto__.ceshi()
 </script>
