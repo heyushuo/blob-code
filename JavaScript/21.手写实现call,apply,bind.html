@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
 
-  <body></body>
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body></body>
+
 </html>
 <script>
   // 手写实现call,apply,bind
   // 手写实现call方法,实现思路就是下边这段话所描述的
   // 引用你不知道的JavaScript中的一段话 当函数引用有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象。
-  Function.prototype.myCall = function(context) {
+  Function.prototype.myCall = function (context) {
     context = context || window; // 如果context传的是null或者undefined则默认context是window
     context.fn = this; //这里this指的是调用myCall的函数;
     var args = [...arguments].slice(1); //把arguments伪数组变成数组,在截取除了第一个之后的参数
@@ -22,8 +24,8 @@
   };
 
   function ceshi() {
-    console.log(this.name);
-    console.log([...arguments]);
+    console.log(this.name); //kebi
+    console.log([...arguments]); //['25']
   }
   var obj = {
     name: 'kebi'
@@ -31,7 +33,7 @@
   ceshi.myCall(obj, '25');
 
   //手写实现apply方法,第二个参数是数组
-  Function.prototype.myApply = function(context) {
+  Function.prototype.myApply = function (context) {
     context = context || window; // 如果context传的是null或者undefined则默认context是window
     context.fn = this;
     var args = arguments[1]; // 取传参数的第二个参数
@@ -47,16 +49,17 @@
   ceshi.myApply(obj, [1, 2, 3]);
 
   //手写实现bind方法,bind方法不会立即执行函数,需要我们返回一个函数
-  Function.prototype.myBind = function(context) {
+  Function.prototype.myBind = function (context) {
     var _this = this;
 
     var args = [...arguments].slice(1); //把arguments伪数组变成数组,在截取除了第一个之后的参数或者 Array.prototype.slice.call(arguments, 1);
-    return function() {
+    return function () {
       //获取执行bind绑定函数返回的函数的参数
       var bingArgs = [...arguments];
       return _this.apply(context, args.concat(bingArgs));
     };
   };
+
   function bindFn() {
     console.log('姓名:' + this.name + '年龄:' + this.age);
     console.log([...arguments]);
