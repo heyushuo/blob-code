@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  /**
+  Object.defineProperty()
+  Object.propertyIsEnumerable("assign") //查看是否可枚举，false
+  Object.getOwnPropertyDescriptor(Object, "assign")
+   Object.assign(target, ...sources)
+  {
+  	value: ƒ, 
+   writable: true, 	// 可写
+   enumerable: false,  // 不可枚举，注意这里是 false
+   configurable: true	// 可配置
+  }
+*/
+  // /其中 target 是目标对象，sources 是源对象，可以有多个，返回修改后的目标对象 target。
+
+  var target = {
+    name: 'heyushuo'
+  }
+  Object.assign(target, {
+    age: 36
+  })
+  console.log(target);
+
+  // 使用 for..in 循环遍历出所有可枚举的自有属性。并复制给新的目标对象（使用 hasOwnProperty 获取自有属性，即非原型链上的属性）
+  // / Object.keys(..) 返回一个数组，包含所有可枚举属性(只会查找对象直接包含的属性，不查找[[Prototype]]链)
+  // Object.getOwnPropertyNames(..) 返回一个数组，包含所有属性，无论它们是否可枚举(只会查找对象直接包含的属性，不查找[[Prototype]]链)
+  // hasOwnProperty(..) 只会检查属性是否在 myObject 对象中，不会检查 [[Prototype]] 原型链。
+
+  // Object.prototype.hasOwnProperty.call(myObject, "b");
+
+  // Object.create()
+  // instanceof 是否是构造函数的实例
+</script>
