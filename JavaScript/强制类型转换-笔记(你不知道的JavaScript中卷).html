@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body></body>
+
+</html>
+<script>
+  // 强制类型转换
+  // 1.值类型转换
+  // 将值从一种类型转换为另一种类型通常称为类型转换, 在 JavaScript 中通常称为强制类型转换,本书为了跟好理解把强制类型转换
+  //分为两种“隐式强制类型转换”和“显式强制类型转换”
+  // 例如:
+  var a = 42;
+  var b = a + ""; // "42" 隐式强制类型转换
+  var c = String(a); //"42" 显式强制类型转换
+
+  // 2.抽象值操作
+  //  ES5 规范第 9 节中定义了一些“抽象操作”（即“仅供内部使用的操作”）和转
+  // 换规则。(ToString、ToNumber 和 ToBoolean)
+  //  2.1 ToString
+  //   抽象操作 ToString，它负责处理非字符串到字符串的强制类型转换。
+  var num = 666;
+  //极大数字
+  var infinityNum = 1.07 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000;
+  var obj = {
+    name: 'kebi',
+    age: 36
+  }
+  var arr = [1, 2, 3];
+  String(null) //"null"
+  String(undefined) //"undefined"
+  String(true) //"true"
+  console.log(num.toString()); //"666"
+  console.log(obj.toString()); //"[object Object]"
+  infinityNum.toString(); // "1.07e21"
+  arr.toString(); //1,2,3 数组的默认 toString() 方法经过了重新定义，将所有单元字符串化以后再用 "," 连接起来
+</script>
