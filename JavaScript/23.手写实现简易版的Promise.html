@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  // promise有三个状态
+  const PENDING = 'pending';
+  const RESOLVED = 'resolved';
+  const REJECTED = 'rejected';
+  //new Promise(()=>{}) 传的是函数
+  function MyPromise(fn) {
+    const _this = this;
+    //一开始 Promise 的状态应该是 pending
+    this.state = PENDING;
+    //value 变量用于保存 resolve 或者 reject 中传入的值
+    this.value = null;
+    // resolvedCallbacks 和 rejectedCallbacks 用于保存 then 中的回调，因为当执行完 Promise 时状态可能还是等待中，这时候应该把 then 中的回调保存起来用于状态改变时使用
+    this.resolvedCallbacks = [];
+    this.rejectedCallbacks = [];
+
+    //执行new promise时传来的函数
+    try {
+      fn(resolve, reject)
+    } catch (e) {
+      reject(e)
+    }
+
+    // 实现resolve 和 reject 函数
+    //     对于 resolve 函数来说，首先需要判断传入的值是否为 Promise 类型
+    // 为了保证函数执行顺序，需要将两个函数体代码使用 setTimeout 包裹起来
+    function resolve(value) {
+      console.log('zhixing resolve');
+
+      if (value instanceof MyPromise) {
+        return value.then(resolve, reject)
+      }
+      //异步
+      setTimeout(() => {
+        if (_this.state == PENDING) {
+          //改变状态
+          _this.state = RESOLVED;
+          //赋值
+          _this.value = value;
+          //执行
+          _this.resolvedCallbacks.map(cb => cb(_this.value))
+        }
+      }, 0);
+    }
+
+    function reject(value) {
+      setTimeout(() => {
+        if (_this.state == REJECTED) {
+          //改变状态
+          _this.state = REJECTED;
+          //赋值
+          _this.value = value;
+          //执行
+          _this.rejectedCallbacks.map(cb => cb(_this.value))
+        }
+      }, 0);
+
+    }
+  }
+
+
+
+  //实现then方法
+  MyPromise.prototype.then = function (onFulfilled, onRejected) {
+    console.log('heyusuo');
+
+    //保证then传的函数(一个是成功函数一个是失败函数)
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v;
+    onRejected =
+      typeof onRejected === 'function' ? onRejected : r => {
+        throw r
+      };
+
+    if (this.state == PENDING) {
+      this.resolvedCallbacks.push(onFulfilled)
+      this.rejectedCallbacks.push(onRejected)
+    }
+    console.log(this.state);
+
+    if (this.state === RESOLVED) {
+      onFulfilled(this.value)
+    }
+    if (this.state === REJECTED) {
+      onRejected(this.value)
+    }
+  }
+
+
+
+  new MyPromise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(1)
+    }, 0)
+  }).then()
+</script>
