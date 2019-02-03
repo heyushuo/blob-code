@@ -72,12 +72,28 @@
     }
   }
 
-
+  function resolutionProcedure(promise2, x, resolve, reject) {
+    // x 不能与 promise2 相等，这样会发生循环引用的问题，比如如下代码
+    if (promise2 === x) {
+      return reject(new TypeError('Error'))
+    }
+  }
 
   //实现then方法
+
+  /**
+   * 
+   * 接下来继续改造 then 函数中的代码，首先我们需要新增一个变量 promise2，
+   * 
+   * 因为每个 then 函数都需要返回一个新的 Promise 对象，该变量用于保存新的返回对象，然后我们先来改造判断等待态的逻辑
+   * 
+   * 
+   * 
+   * 
+   */
   MyPromise.prototype.then = function (onFulfilled, onRejected) {
     console.log('heyusuo');
-
+    var _this = this;
     //保证then传的函数(一个是成功函数一个是失败函数)
     onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v;
     onRejected =
@@ -86,8 +102,28 @@
       };
 
     if (this.state == PENDING) {
-      this.resolvedCallbacks.push(onFulfilled)
-      this.rejectedCallbacks.push(onRejected)
+      return (
+        promise2 = new MyPromise((resolve, reject) => {
+          this.resolvedCallbacks.push(() => {
+            try {
+              const x = onFulfilled(_this.value);
+              resolutionProcedure(promise2, x, resolve, reject)
+            } catch (error) {
+              reject(r)
+            }
+          })
+          this.rejectedCallbacks.push(() => {
+            try {
+              const x = onRejected(_this.value);
+              resolutionProcedure(promise2, x, resolve, reject)
+            } catch (error) {
+              reject(r)
+            }
+          })
+        })
+      )
+      // this.resolvedCallbacks.push(onFulfilled)
+      // this.rejectedCallbacks.push(onRejected)
     }
     console.log(this.state);
 
@@ -105,5 +141,7 @@
     setTimeout(() => {
       resolve(1)
     }, 0)
-  }).then()
+  }).then(function () {
+    console.log("成功了");
+  })
 </script>
