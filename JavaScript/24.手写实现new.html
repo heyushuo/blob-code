@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  function create(a) {
+    let obj = {}
+    //取得构造函数 shift返回的结果是数组的第一项
+    let Con = [].shift.call(arguments);
+    obj.__proto__ = Con.prototype;
+    Con.apply(obj, arguments);
+    return obj
+  }
+
+  function Person() {
+    this.name = "heyushuo";
+    this.age = "kebi";
+  }
+  Person.prototype.say = function () {
+    console.log('说话');
+  }
+
+
+  var newObj = create(Person);
+  console.log(newObj);
+</script>
