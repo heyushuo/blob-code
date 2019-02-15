@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div>
+
+    <!-- https://juejin.im/post/5b960fcae51d450e9d645c5f#comment  性能优化 -->
+    <!-- https://cn.vuejs.org/v2/guide/components-dynamic-async.html#%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6 -->
+    <!-- () => import('@/components/Hello') -->
+    1.引用组件按需加载,一些ui库也要按需加载(const search = resolve => require(['./search.vue'], resolve);)
+    <!-- 是单独打包成了一个js，在页面首次加载的时候不需要加载他，等到请求相应的页面的时候在去服务器请求它，减小了页面首屏加载的时间。 -->
+    2.循环调用子组件时添加 key (有利于vue快速定位那条数据发生了变化)
+    3.vue中使用keep-alive
+    <!-- 
+      这是目前用的比较多的方式
+      使用router. meta属性 
+    -->
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
+    4.vender包太大,可以使用cdn解决此问题,解决方法很简单，打包 vender 时不打包 vue、vuex、vue-router、axios 等，换用国内的 bootcdn 直接引入到根目录的 index.html 中。
+    <!-- 
+      <script src="//cdn.bootcss.com/vue/2.2.5/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/vue-router/2.3.0/vue-router.min.js"></script>
+    <script src="//cdn.bootcss.com/vuex/2.2.1/vuex.min.js"></script>
+    <script src="//cdn.bootcss.com/axios/0.15.3/axios.min.js"></script>
+   -->
+    <!-- 在 webpack 里有个 externals，可以忽略不需要打包的库
+    externals: {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+    'axios': 'axios'
+    } -->
+    5.组件销毁的时候去掉相应的监听事件
+    <!-- 缓存 https://www.haorooms.com/post/cache_huancunliyong -->
+    6.代码分割
+    分离业务代码和第三方库（ vendor ）
+    按需加载（利用 import() 语法）
+    7.提取组件的 CSS 到单独到文件
+    <!-- 当使用单文件组件时，组件内的 CSS 会以 <style> 标签的方式通过 JavaScript 动态注入。这有一些小小的运行时开销，将所有组件的 CSS 提取到同一个文件可以避免这个问题，也会让 CSS 更好地进行压缩和缓存。 -->
+    8.利用Object.freeze()提升性能
+    由于 Object.freeze() 会把对象冻结，所以比较适合展示类的场景
+    <!-- const object1 = {
+    property1: 42
+    };
+  当你把一个普通的 JavaScript 对象传给 Vue 实例的  data  选项，Vue 将遍历此对象所有的属性，并使用  Object.defineProperty  把这些属性全部转为 getter/setter，这些 getter/setter 对用户来说是不可见的，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。
+    const object2 = Object.freeze(object1); -->
+  </div>
+</body>
+
+</html>
+<script>
+</script>
