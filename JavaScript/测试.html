@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div id="box">
+
+  </div>
+</body>
+
+</html>
+<script>
+  function heyushuo(a, b) {
+    var sum = a + b
+    console.log(a);
+
+    if (b > 89) {
+      return
+    } else {
+      heyushuo(b, sum)
+    }
+  }
+  heyushuo(1, 1)
+  var ele = document.createElement('div');
+  ele.setAttribute("id", "example")
+  var pEle = document.createElement("p");
+  pEle.className = "slogan";
+  pEle.setAttribute("name", "hell0")
+  pEle.innerHTML = "hello world"
+  ele.appendChild(pEle)
+  document.body.append(ele)
+
+
+  for (var i = 0; i < 5; i++) {
+    var heyu = document.createElement("div");
+    heyu.innerHTML = "hello "
+    document.getElementById("box").append(heyu)
+    heyu.onclick = (function (j) {
+      return function () {
+        console.log(j);
+      }
+    })(i)
+  }
+
+  for (var i = 0; i < 5; i++) {
+
+  }
+</script>
