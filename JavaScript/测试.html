@@ -50,4 +50,22 @@
   for (var i = 0; i < 5; i++) {
 
   }
+
+
+
+  function palouti(n) {
+    if (n == 2) {
+      return 2
+    }
+    if (n == 1) {
+      return 1
+    }
+    return palouti(n - 1) + palouti(n - 2);
+  }
+
+  console.log('一共有' + palouti(5) + "种方式")
+
+  1 === 1
+  2 === 2
+  3 === 3
 </script>
