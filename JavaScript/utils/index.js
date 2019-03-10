@@ -210,3 +210,42 @@ const IS_IDCARD = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][
 const isiOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 const isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1;
 const isWX = navigator.userAgent.indexOf('MicroMessenger') > -1;
+
+
+export function scrollTop(el, from = 0, to, duration = 500, endCallback) {
+  if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = (
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        return window.setTimeout(callback, 1000 / 60);
+      }
+    );
+  }
+  //需用滚动的距离
+  const difference = Math.abs(from - to);
+  //速度
+  const step = Math.ceil(difference / duration * 50);
+
+  function scroll(start, end, step) {
+    if (start === end) {
+      endCallback && endCallback();
+      return;
+    }
+    //移动的距离
+    let d = (start + step > end) ? end : start + step;
+    //开始
+    if (start > end) {
+      d = (start - step < end) ? end : start - step;
+    }
+
+    if (el === window) {
+      window.scrollTo(d, d);
+    } else {
+      el.scrollTop = d;
+    }
+    window.requestAnimationFrame(() => scroll(d, end, step));
+  }
+  scroll(from, to, step);
+}
