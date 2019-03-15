@@ -249,3 +249,60 @@ export function scrollTop(el, from = 0, to, duration = 500, endCallback) {
   }
   scroll(from, to, step);
 }
+
+//总共剩余2000秒
+//毫秒倒计时
+var sys_second=60000;
+var str="";
+function setHeight(){
+	if(sys_second>=0){
+		var day = Math.floor((sys_second / 3600000) / 24);
+		var hour = Math.floor((sys_second / 3600000) % 24);
+		var minute = Math.floor((sys_second / 60000) % 60);
+		var second = Math.floor((sys_second /1000)%60);
+		
+		hour=day*24+hour;
+		if(hour==0){
+			hour="0";
+		}
+		if(minute<10){
+			minute="0"+minute;
+		}
+		if(second<10){
+			second="0"+second;
+		}
+		 str=hour+"小时"+minute+"分钟"+second+"秒";
+		 console.log(sys_second)
+		$("#box").html(str);
+		sys_second=sys_second-1000;
+	}
+}
+setHeight()
+setInterval('setHeight()',1000);
+
+
+
+
+//秒倒计时
+var  second11=50;
+function add(){
+if(second11>=0){
+		var day = Math.floor((second11 / 3600) / 24);
+		var hour = Math.floor((second11 / 3600) % 24);
+		var minute = Math.floor((second11 / 60) % 60);
+		var second = Math.floor(second11 % 60);
+		hour=day*24+hour;
+		if(hour==0){
+			hour="0";
+		}
+		if(minute<10){
+			minute="0"+minute;
+		}
+		if(second<10){
+			second="0"+second;
+		}
+		var str=hour+"小时"+minute+"分钟"+second+"秒";
+		$("#box1").html(str)
+		second11=second11-1;
+	}
+}
