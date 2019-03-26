@@ -86,4 +86,15 @@
     console.log(abcd);
   }
   abcd()
+
+  var rr = 100;
+  (function () {
+    console.log(rr);
+    rr = 200;
+    console.log(rr + '----');
+    console.log(window.rr + '----');
+    var rr = 300;
+    console.log(rr);
+    console.log(window.rr);
+  })()
 </script>
