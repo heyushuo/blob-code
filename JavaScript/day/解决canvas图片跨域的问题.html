@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  // 第一种方法(给图片设crossOrigin为anonymous)
+  var img = new Image();
+  img.setAttribute('crossOrigin', 'anonymous');
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext('2d');
+  img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height + 200;
+    ctx.drawImage(img, 0, 0);
+    document.getElementById('canvasImg').src = canvas.toDataURL("image/jpeg", 1);
+  }
+  img.src = 'http://img.hb.aicdn.com/38d8f519b3f464a80d85ed9632fed904ed0181f41d632-ZHrigO_fw658';
+  // 第二种方法(微信的用户头像及时按上方设置了不生效),添加时间戳可以
+  img.src = 'http://wx.qlogo.cn/mmopen/vi_32/RnLIHfXibgFHlticiclzflpriaLsC3TS9b2Sbj05Wh3vGlhcFutt18dfkXGUt8x11e4q2KHlX4EHHaBb6XylLQW1kQ/0?timeStamp=' + new Date();
+  //第三种方式
+  // 运维修改服务器的地址
+  // 首先在nginx配置里增加如下代码
+  // location ^~ /wechat_image/ {
+  //   add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+  //   add_header 'Access-Control-Allow-Credentials' 'true' always; 
+  //   add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS' always; 
+  //   add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-  Since,Keep-Alive,Origin,User-Agent,X-Requested-With' always; 
+  //   proxy_pass http://wx.qlogo.cn/; 
+  // }
+  // 然后将前端获取微信的头像的地址由 [http://wx.qlogo.cn/xxx](http://wx.qlogo.cn/xxx) 改成[https://${自己的域名}/wechat_image/xxx]
+  // 五、IE10浏览器不支持crossOrigin怎么办？
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var url = URL.createObjectURL(this.response);
+    var img = new Image();
+    img.onload = function() {
+      // 此时你就可以使用canvas对img为所欲为了
+      // ... code ...
+      // 图片用完后记得释放内存
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+  };
+  xhr.open('GET', url, true);
+  xhr.responseType = 'blob';
+  xhr.send();
+</script>
