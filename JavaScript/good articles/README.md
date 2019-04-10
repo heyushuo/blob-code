@@ -3,3 +3,4 @@
 [九种跨域方式实现原理（完整版）](https://github.com/ljianshu/Blog/issues/55)
 
 [JavaScript 任务队列的顺序机制（事件循环）](http://www.yangzicong.com/article/3?tdsourcetag=s_pctim_aiomsg)
+[深入 Vue 响应式原理，活捉一个 MVVM](https://juejin.im/post/5ca15e29f265da30a3303351)
