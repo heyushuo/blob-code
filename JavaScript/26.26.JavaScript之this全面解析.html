@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  // 1.1 默认绑定（严格/非严格模式）
+  // function foo() {
+  //   console.log(this.a);
+  // }
+  // var a = 2;
+  // foo(); // 2
+  // function foo() {
+  //   "use strict";
+  //   console.log(this); //undefined
+  //   console.log(this.a); //Uncaught TypeError: Cannot read property 'a' of undefined
+  // }
+  // var a = 2;
+  // foo();
+  // ** 注意下边这种情况 ** ``
+  var age = 18;
+  var obj = {
+    name: "heyushuo",
+    age: 25,
+    fn: function() {
+      function sayName() {
+        console.log(this); //window
+        console.log(this.age); //undefined
+      }
+      sayName();
+    }
+  };
+  obj.fn();
+  var a = "global";
+  var obj = {
+    a: 2,
+    foo: function() {
+      console.log(this.a); //global
+    }
+  };
+  var bar = obj.foo; // 函数别名！
+  bar();
+  var obj = {
+    name: "heyushuo",
+    obj1: {
+      name: "kebi",
+      foo: function() {
+        console.log(this.name);
+      }
+    }
+  };
+  obj.obj1.foo();
+</script>
