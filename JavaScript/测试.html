@@ -1,76 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<head>
-  <title></title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-  <div id="box">
-
-  </div>
-</body>
-
+  <body>
+    <div id="box"></div>
+  </body>
 </html>
 <script>
   function heyushuo(a, b) {
-    var sum = a + b
+    var sum = a + b;
     console.log(a);
 
     if (b > 89) {
-      return
+      return;
     } else {
-      heyushuo(b, sum)
+      heyushuo(b, sum);
     }
   }
-  heyushuo(1, 1)
-  var ele = document.createElement('div');
-  ele.setAttribute("id", "example")
+  heyushuo(1, 1);
+  var ele = document.createElement("div");
+  ele.setAttribute("id", "example");
   var pEle = document.createElement("p");
   pEle.className = "slogan";
-  pEle.setAttribute("name", "hell0")
-  pEle.innerHTML = "hello world"
-  ele.appendChild(pEle)
-  document.body.append(ele)
-
+  pEle.setAttribute("name", "hell0");
+  pEle.innerHTML = "hello world";
+  ele.appendChild(pEle);
+  document.body.append(ele);
 
   for (var i = 0; i < 5; i++) {
     var heyu = document.createElement("div");
-    heyu.innerHTML = "hello "
-    document.getElementById("box").append(heyu)
-    heyu.onclick = (function (j) {
-      return function () {
+    heyu.innerHTML = "hello ";
+    document.getElementById("box").append(heyu);
+    heyu.onclick = (function(j) {
+      return function() {
         console.log(j);
-      }
-    })(i)
+      };
+    })(i);
   }
 
-  for (var i = 0; i < 5; i++) {
-
-  }
-
-
+  for (var i = 0; i < 5; i++) {}
 
   function palouti(n) {
     if (n == 2) {
-      return 2
+      return 2;
     }
     if (n == 1) {
-      return 1
+      return 1;
     }
     return palouti(n - 1) + palouti(n - 2);
   }
 
-  console.log('一共有' + palouti(5) + "种方式")
+  console.log("一共有" + palouti(5) + "种方式");
 
-  1 === 1
-  2 === 2
-  3 === 3
-
-
-
+  1 === 1;
+  2 === 2;
+  3 === 3;
 
   // var heyushuo123 = 666;
   // (function heyushuo123() {
@@ -80,21 +68,31 @@
 
   // })();
 
-
   function abcd() {
     abcd = 123;
     console.log(abcd);
   }
-  abcd()
+  abcd();
 
   var rr = 100;
-  (function () {
+  (function() {
     console.log(rr);
     rr = 200;
-    console.log(rr + '----');
-    console.log(window.rr + '----');
+    console.log(rr + "----");
+    console.log(window.rr + "----");
     var rr = 300;
     console.log(rr);
     console.log(window.rr);
-  })()
+  })();
+
+  //删除数组对象中指定那些或者某个对象
+  var obj = [
+    { id: 1, type: 2 },
+    { id: 2, type: 1 },
+    { id: 1, type: 3 },
+    { id: 1, type: 5 }
+  ];
+  obj.filter(item => {
+    return !(item.id == 1 && item.type == 3);
+  });
 </script>
