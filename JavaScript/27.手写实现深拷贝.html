@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  //浅拷贝
+  function copy(obj) {
+    if (Object.prototype.toString.call(obj) != "[object Object]" && Object.prototype.toString.call(obj) != "[object Array]") {
+      console.log('需要一个对象或者数组');
+    }
+    var result = obj.constructor == Array ? [] : {}
+    for (const i in obj) {
+      //是否是自己的属性(除去原型上的可枚举属性)
+      if (obj.hasOwnProperty(i)) {
+        result[i] = obj[i];
+      }
+    }
+    return result;
+  }
+  console.log(copy([1, 2, 3, 5, 6]));
+  //深拷贝
+  function deepCopy(obj) {
+    if (Object.prototype.toString.call(obj) != "[object Object]" && Object.prototype.toString.call(obj) != "[object Array]") {
+      console.log('需要一个对象或者数组');
+      return;
+    }
+    var result = obj.constructor == Array ? [] : {};
+    for (const i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        //排除函数,正则,日期,null等
+        if (Object.prototype.toString.call(obj[i]) == "[object Object]" || Object.prototype.toString.call(obj[i]) == "[object Array]") {
+          result[i] = deepCopy(obj[i])
+        } else {
+          result[i] = obj[i];
+        }
+      }
+    }
+    return result;
+  }
+  var copyObj = {
+    name: 'heyushuo',
+    arr: [1, 2, 3, 4],
+    date: new Date(),
+    fun: function() {},
+    reg: /a/,
+    a: null
+  }
+  var deepData = deepCopy(copyObj)
+  copyObj.name = "keb";
+  copyObj.arr[1] = "heyushuo";
+  console.log(copyObj);
+  console.log(deepData);
+</script>
