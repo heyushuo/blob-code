@@ -16,7 +16,10 @@
     let obj = {}
     //取得构造函数 shift返回的结果是数组的第一项,并且改变原数组
     let Con = [].shift.call(arguments);
-    obj.__proto__ = Con.prototype;
+    // Object.setPrototypeOf(subType, superType) 
+    //   subType.__proto__ = superType;
+    Object.setPrototypeOf(obj, Con.prototype)
+    // obj.__proto__ = Con.prototype;
     // 并且改变原数组arguments现在以及去掉第一个参数了
     Con.apply(obj, arguments);
     return obj
