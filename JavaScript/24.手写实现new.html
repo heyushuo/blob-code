@@ -8,29 +8,27 @@
 </head>
 
 <body>
-
 </body>
 
 </html>
 <script>
   function create(a) {
     let obj = {}
-    //取得构造函数 shift返回的结果是数组的第一项
+    //取得构造函数 shift返回的结果是数组的第一项,并且改变原数组
     let Con = [].shift.call(arguments);
     obj.__proto__ = Con.prototype;
+    // 并且改变原数组arguments现在以及去掉第一个参数了
     Con.apply(obj, arguments);
     return obj
   }
 
-  function Person() {
-    this.name = "heyushuo";
-    this.age = "kebi";
+  function Person(name, age) {
+    this.name = name;
+    this.age = age;
   }
-  Person.prototype.say = function () {
+  Person.prototype.say = function() {
     console.log('说话');
   }
-
-
-  var newObj = create(Person);
+  var newObj = create(Person, "heyushuo", 12);
   console.log(newObj);
 </script>
