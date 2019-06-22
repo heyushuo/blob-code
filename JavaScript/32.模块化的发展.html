@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  //模块化发展历程
+  // 1.全局function模式:讲不同的功能封装成不同的全局函数
+  //问题:污染全局命名空间,容易引起命名冲突或数据不安全,而且模块成员之间看不出直接关系
+  function getData() {
+    //...
+  }
+  // 2.简单的对象封装
+  //问题,数据不安全(外部可以直接修改模块内部的数据)
+  let myModule = {
+    name: "何玉硕",
+    sayName: function() {
+      console.log(this.name);
+    }
+  }
+  myModule.name = "kebi";
+  myModule.sayName();//kebi
+//这样的写法会暴露所有的模块成员,内部状态可以被外部改写
+// 3.IIFE模式:匿名函数自调用
+  // (1).数据是私有的,外部只能通过暴露的方法操作
+  // (2).将数据和行为封装到一个函数内部,通过给window添加属性来向外暴露接口
+  // (3).
+</script>

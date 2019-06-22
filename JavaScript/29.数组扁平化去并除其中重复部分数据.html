@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  var arr = [
+    [1, 2, 3],
+    ['a', 'b'],
+    ['heyushuo'],
+    [1, 2, 3, ["c", 'd', 'e']],
+    ['a']
+  ]
+  //递归实现数组扁平化
+  // function flat(arr, result) {
+  //   var result = result || []
+  //   for (let i = 0; i < arr.length; i++) {
+  //     const ele = arr[i];
+  //     if (ele.constructor == Array) {
+  //       flat(ele, result)
+  //     } else {
+  //       result.push(ele)
+  //     }
+  //   }
+  //   return result;
+  // }
+  // console.log(flat(arr));
+  //使用Reduce实现数组扁平化
+  //第一次循环后prev会保存上一次循环的结果
+  function flat(arr) {
+    return arr.reduce((prev, curr) => {
+      // console.log(prev);
+      //不能使用push push返回的是数组的长度
+      return prev.concat(Array.isArray(curr) ? flat(curr) : curr)
+      //或者
+      // prev.push(...Array.isArray(curr) ? flat(curr) : [curr]);
+      // return prev;
+    }, [])
+  }
+  console.log(flat(arr));
+  //ES6新增数组扁平化的函数
+  // arr.flat(Infinity)
+</script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  // object instanceof constructor
+  //   object
+  // 要检测的对象.
+  // constructor
+  // 某个构造函数
+  // 运算符用来检测 constructor.prototype 是否存在于参数 object 的原型链上。
+  //通俗讲可以判断  一个变量是否是某个对象的实例
+  function instance(L, R) {
+    var L = L.__proto__; //去要检测的对象 (实例对象)
+    var R = R.prototype; //取构造函数的原型
+    while (true) {
+      //Object.prototype.__proto__ = null 最顶层
+      if (L == null) {
+        return false;
+      }
+      if (L == R) {
+        return true
+      }
+      var L = L.__proto__; //接着比较原型链的下一层
+    }
+  }
+</script>

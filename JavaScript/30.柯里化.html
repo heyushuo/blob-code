@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  //实现柯里化函数,//延迟执行,把接收多个参数的函数变成接收一个单一参数的函数
+  function currying(fn, length) {
+    var length = length || fn.length;
+    return function() {
+      var args = Arrary.prototype.slice.call(arguments)
+      return args.length >= length ? fn.apply(this, args) : currying(fn.bind(this, ...args), length - args.length) // 注释 5
+    }
+  }
+  // Test
+  const fn = currying(function(a, b, c) {
+    console.log([a, b, c]);
+  });
+  fn("a", "b", "c") // ["a", "b", "c"]
+  fn("a", "b")("c") // ["a", "b", "c"]
+  fn("a")("b")("c") // ["a", "b", "c"]
+  fn("a")("b", "c") // ["a", "b", "c"]
+  //如何sum(1,2)改成sum(1)(2)的效果
+  function sum(a, b) {
+    console.log(a + b)
+  }
+  //简易版本
+  // function curSum(a) {
+  //   return function(b) {
+  //     console.log(a + b);
+  //   }
+  // }
+  // curSum(1)(2)
+  //柯里化
+  function curSum() {
+    var args = Array.prototype.slice.call(arguments);
+    return function() {
+      var arguments = Array.prototype.slice.call(arguments);
+      sum.apply(this, args.concat(arguments))
+    }
+  }
+  curSum(2)(9);
+  //把函数当做参数来搞事情
+  // 改名为curry了
+  function curry(fn) {
+    // slice会返回一个新数组，这不会影响到arguments
+    let args = Array.prototype.slice.call(arguments, 1);
+    // 返回一个函数可以提供二次调用
+    return function() {
+      // 此处的arguments为第二次调用时传入的参数
+      let newArgs = args.concat(Array.prototype.slice.call(arguments))
+      return fn.apply(this, newArgs)
+    }
+  }
+</script>
