@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+  <style lang="css">
+    .box {
+      border: 1px solid #000;
+    }
+
+    .box .item {
+      margin: 20px;
+    }
+
+    /* 使其隔离BFC,margin不会重叠 */
+    .box .wrap {
+      overflow: hidden;
+    }
+
+    /* 父子元素margin重叠问题 */
+    /* 
+    在box1元素中添加:overflow:hidden;或者overflow：auto；使其父元素形成一个BFC；
+    也可以在box1元素中添加border：1px solid；或是padding：1px；这些都可以有效解决父子元素margin重叠问题。
+     */
+    .box1 {
+      background: yellow;
+    }
+
+    .box1 .wrap {
+      margin-top: 20px;
+    }
+
+    /* 
+    左边固定右边自适应 
+    特性2：BFC不会重叠浮动元素
+    */
+    .box2 {
+      border: 1px solid black;
+    }
+
+    .box2 .left {
+      width: 200px;
+      float: left;
+    }
+
+    .box2 .right {
+      overflow: hidden;
+    }
+
+    /* 
+    特性3：BFC可以包含浮动----清除浮动
+    */
+    .item1 {
+      width: 50px;
+      transition: all 300ms ease-in;
+    }
+  </style>
+
+  <body>
+    <!--同属于一个BFC; 相邻; 块级元素  margin会发生重叠 -->
+    <div class="box">
+      <div class="item">1</div>
+      <div class="wrap">
+        <div class="item">1</div>
+      </div>
+    </div>
+
+    <div class="box1">
+      <div class="wrap">
+        上大几傅雷家书的
+      </div>
+    </div>
+
+    <div class="box2">
+      <div class="left">速度快脚手架</div>
+      <div class="right">水电费卡加水电费离开静安寺的六块腹肌阿斯利康打飞机拉开圣诞节泛滥卡视角的卢卡斯的解放路卡就是对方垃圾水电费离开家爱健身房大立科技ADSL开发</div>
+    </div>
+
+    <div class="list">
+      <div class="item1">a23123f</div>
+      <div class="item1">sadf</div>
+      <div class="item1">asdf</div>
+      <div class="item1">sadf</div>
+    </div>
+  </body>
+
+</html>
+<script>
+  // Block formatting context直译为"块级格式化上下文"。它是一个独立的渲染区域，只有Block - level box参与， 
+  // 它规定了内部的Block - level Box如何布局，并且与这个区域外部毫不相干。通俗地讲，
+  // BFC是一个容器，用于管理块级元素。
+
+  // 二、如何创建BFC
+  // float为 left | right
+  // overflow为 hidden | auto | scroll
+  //display为 table - cell | table - caption | inline - block | inline - flex | flex
+  //position为 absolute | fixed
+  //根元素
+
+  //BFC的布局规则
+
+  // 1.内部的Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠(margin重叠三个条件: 同属于一个BFC; 相邻; 块级元素) 。
+  //2.FC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素
+  // 3.BFC的区域不会与float box重叠(利用这点可以实现自适应两栏布局)。
+  //
+
+  var allEle = document.querySelectorAll(".item1");
+  for (let i = 0; i < allEle.length; i++) {
+    const element = allEle[i];
+    let count = 1;
+    element.onclick = function () {
+      this.style.transform = `rotate(${60*count}deg)`
+      count++;
+    }
+  }
+</script>
