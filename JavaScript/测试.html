@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
 
-  <body>
-    <div id="box"></div>
-  </body>
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div id="box"></div>
+</body>
+
 </html>
 <script>
   function heyushuo(a, b) {
     var sum = a + b;
     console.log(a);
-
     if (b > 89) {
       return;
     } else {
@@ -30,7 +31,6 @@
   pEle.innerHTML = "hello world";
   ele.appendChild(pEle);
   document.body.append(ele);
-
   for (var i = 0; i < 5; i++) {
     var heyu = document.createElement("div");
     heyu.innerHTML = "hello ";
@@ -41,7 +41,6 @@
       };
     })(i);
   }
-
   for (var i = 0; i < 5; i++) {}
 
   function palouti(n) {
@@ -53,27 +52,21 @@
     }
     return palouti(n - 1) + palouti(n - 2);
   }
-
   console.log("一共有" + palouti(5) + "种方式");
-
   1 === 1;
   2 === 2;
   3 === 3;
-
   // var heyushuo123 = 666;
   // (function heyushuo123() {
   //   heyushuo123 = 900;
   //   console.log(heyushuo123); //打印函数
   //   console.log(window.heyushuo123);
-
   // })();
-
   function abcd() {
     abcd = 123;
     console.log(abcd);
   }
   abcd();
-
   var rr = 100;
   (function() {
     console.log(rr);
@@ -84,15 +77,73 @@
     console.log(rr);
     console.log(window.rr);
   })();
-
   //删除数组对象中指定那些或者某个对象
-  var obj = [
-    { id: 1, type: 2 },
-    { id: 2, type: 1 },
-    { id: 1, type: 3 },
-    { id: 1, type: 5 }
-  ];
+  var obj = [{ id: 1, type: 2 }, { id: 2, type: 1 }, { id: 1, type: 3 }, { id: 1, type: 5 }];
   obj.filter(item => {
     return !(item.id == 1 && item.type == 3);
   });
+</script>
+<!-- <script>
+    var name = "kebi";
+    (function name() {
+      name = 'heyushuo';
+      console.log(name);
+    })()
+  </script> -->
+<script>
+  var name = "kebi";
+  (function() {
+    function name() {
+      name = 'heyushuo';
+      console.log(name);
+    }
+    name()
+  })()
+</script>
+<script>
+  // 要到创建fn函数的那个作用域中取，无论fn函数将在哪里调用。
+  //在哪里创建函数,函数的作用域就已经确定了,和在哪里调用没关系
+  var x = 10
+
+  function fn() {
+    console.log(x)
+  }
+
+  function show(f) {
+    var x = 20;
+    return function() {
+      f()
+    }
+  }
+  show(fn)()
+</script>
+<script>
+  var obj = {
+    name: "heyusu",
+    age: 23,
+    arr: [12, 2, 2, 2]
+  }
+  var arr = [3, 4, 5, 6, { name: "heyushuo" }]
+
+  function copy(obj) {
+    var newObj = obj.constructor == Array ? [] : {};
+    for (var i in obj) {
+      if (obj.hasOwnProperty(i)) {
+        if (Object.prototype.toString.call(obj[i]) == '[object Object]' || Object.prototype.toString.call(obj[i]) == "[object Array]") {
+          newObj[i] = copy(obj[i])
+        } else {
+          newObj[i] = obj[i]
+        }
+      }
+    }
+    return newObj
+  }
+  console.log(copy(obj));
+  console.log(copy(arr));
+  //浅拷贝
+  Object.assign(obj, {});
+  //浅拷贝
+  arr.concat() //方法不修改原数组并返回一个新数组
+  //浅拷贝
+  arr.slice() //方法不修改原数组并返回一个新数组
 </script>

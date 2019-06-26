@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  /**
+   *     toString()和 String() 
+   **/
+  var number = 1;
+  number.toString(); //'1'
+  //null 和 undefined 没有toString方法  可以使用String()
+  String(null) // 'null'
+  var obj = { name: "kebi" };
+  var arr = [1, 2, 3, 4]
+  obj.toString() //[object Object]
+  String(obj) //[object Object]
+  arr.toString() //1,2,3,4
+  String(arr) //1,2,3,4
+  /**
+   *    Number()
+   **/
+  Number('324') // 324
+  Number('324abc') // NaN
+  Number('') // 0
+  Number(true) // 1
+  Number(false) // 0
+  Number(undefined) // NaN
+  //-------------------------
+  Number(null) // 0
+  //-------------------------
+  Number({ a: 1 }) // NaN
+  Number([1, 2, 3]) // NaN
+  Number([5]) // 5
+  /**
+   *    parseInt() & parseFloat()
+   **/
+  //  parseInt()在没有第二个参数时默认以十进制转换数值，有第二个参数时，以第二个参数为基数转换数值，如果基数有误返回NaN
+  console.log(parseInt("13")); //13
+  console.log(parseInt("11", 2)); //3
+  console.log(parseInt("17", 8)); //15
+  console.log(parseInt("1f", 16)); //31
+  // Number函数将字符串转为数值，要比parseInt函数严格很多。基本上，只要有一个字符无法转成数值，整个字符串就会被转为NaN。
+  parseInt('42 cats') // 42
+  Number('42 cats') // NaN
+  /**
+   *    自动转换数据类型
+   **/
+  //  算数运算符(+ - * /)跟非Number类型的值进行运算时，会将这些值转换为Number，然后在运算，除了字符串的加法运算
+  true + 2 //3  yrue转换为number
+  "heyushuo" + 2 // heyushuo2  除了字符串的加法运算
+  undefined + 1 // NaN
+  2 + NaN // NaN 任何值和NaN做运算都得NaN
+    //一元运算符 会把运算子转成数值。
+    + "123" //正的123 把字符串123转换为数字123
+  /**
+   *    字符串的自动转换，主要发生
+   * 字符串的自动转换，主要发生在字符串的加法运算时。当一个值为字符串，另一个值为非字符串，则后者转为字符串。
+   **/
+  '5' + 1 // '51'
+    '5' + true // "5true"
+  '5' + false // "5false"
+    '5' + {} // "5[object Object]"
+  '5' + [] // "5"
+  '5' + function() {} // "5function (){}"
+  '5' + undefined // "5undefined"
+    '5' + null // "5null"
+  // 有几个非常规的情况需要注意。
+  // NaN 不等于 NaN。
+  // + 0 等于 - 0。
+  /**
+   * 相等判断有几个规则
+   **/
+  //  1. 字符串和数字之间的相等比较 (字符串会先转成Number在进行比较)
+  // 2.其他类型和布尔类型之间的相等比较(如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值)
+  //3.null==undefined
+  //通过如下判断null 和undefined比较合适
+  if (a == null) {
+    // ..
+  }
+  //4.关于对象（对象 / 函数 / 数组）和标量基本类型（字符串 / 数字 / 布尔值）之间的相等比较，(对象要先调用 ToPromitive 抽象操作valueOf或者toString)
+</script>
