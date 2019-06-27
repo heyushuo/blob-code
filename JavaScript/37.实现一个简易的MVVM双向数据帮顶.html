@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+<input type="text" id="input">
+<br>
+<span id="span"></span>
+<div id="btn">点击改变</div>
+
+</html>
+<script>
+  var data = {
+    text: "heyushuo"
+  }
+  var value = document.getElementById("input")
+  var span = document.getElementById("span")
+  var btn = document.getElementById("btn")
+  Object.defineProperty(data, "text", {
+    get() {},
+    set(newVal) {
+      value.value = newVal;
+      span.innerHTML = newVal;
+    }
+  })
+  data.text = "heyushuo"
+  value.addEventListener('input', event => {
+    data.text = event.target.value;
+    span.innerHTML = event.target.value;
+  });
+  btn.onclick = function() {
+    data.text = "kebi"
+  }
+</script>
