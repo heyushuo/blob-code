@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
 
-  <body>
-
-  </body>
+<body>
+</body>
 
 </html>
 <script>
   //冒泡排序
-  var array = [3, 2, 1, 5, 6, 8]
+  var array = [3, 2, 1, 5, 6, 8, 0]
   for (let i = 0; i < array.length - 1; i++) {
     for (let j = 0; j < array.length - i - 1; j++) {
       if (array[j] > array[j + 1]) {
@@ -25,5 +24,48 @@
       }
     }
   }
-  console.log(array);
+  console.log(array); //时间复杂度是O(n2)
+  //选择排序
+  function selection(array) {
+    for (let i = 0; i < array.length - 1; i++) {
+      for (let j = i + 1; j < array.length; j++) {
+        if (array[i] > array[j]) {
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp
+        }
+      }
+    }
+    return array;
+  }
+  console.log(selection(array)); //时间复杂度是O(n2)
+  //快速排序
+  //  简单说： 找到一个数作为参考，比这个数字大的放在数字左边，比它小的放在右边； 然后分别再对左边和右变的序列做相同的操作:
+  // 选择一个基准元素，将列表分割成两个子序列；
+  // 对列表重新排序，将所有小于基准值的元素放在基准值前面，所有大于基准值的元素放在基准值的后面；
+  // 分别对较小元素的子序列和较大元素的子序列重复步骤1和2
+  var newArray = [90, 3, 576, 89, 0, 2, 5];
+
+  function quickSort(arr) {
+    if (arr.length <= 1) {
+      return arr; //递归出口
+    }
+    var left = [],
+      right = [],
+      current = arr.splice(0, 1); //注意splice后，数组长度少了一个
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] < current) {
+        left.push(arr[i]) //放在左边
+      } else {
+        right.push(arr[i]) //放在右边
+      }
+    }
+    // console.log(left);
+    // console.log(current);
+    // console.log(right);
+    // console.log('-----------------------------------------');
+    return quickSort(left).concat(current, quickSort(right)); //递归
+  }
+  quickSort(newArray)
+  // console.log(quickSort(newArray));
 </script>
