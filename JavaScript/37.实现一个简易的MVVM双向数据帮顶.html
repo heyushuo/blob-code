@@ -18,13 +18,17 @@
 </html>
 <script>
   var data = {
-    text: "heyushuo"
+    text: "heyushuo",
+    arr1: [1, 2, 4, 4],
+    obj: {}
   }
   var value = document.getElementById("input")
   var span = document.getElementById("span")
   var btn = document.getElementById("btn")
   Object.defineProperty(data, "text", {
-    get() {},
+    get() {
+      return this.text
+    },
     set(newVal) {
       value.value = newVal;
       span.innerHTML = newVal;
@@ -36,6 +40,30 @@
     span.innerHTML = event.target.value;
   });
   btn.onclick = function() {
-    data.text = "kebi"
+    data.text = "kebi";
+    data.arr1.push(1)
+    // data.arr1 = ['a', 'b']
+    data.obj.name = "123"
   }
+  Object.defineProperty(data, "arr1", {
+    enumerable: true,
+    configurable: true,
+    get() {
+      return [1, 2, 3, 5]
+    },
+    set(newVal) {
+      console.log(newVal);
+    }
+  })
+  console.log(data);
+  Object.defineProperty(data, "obj", {
+    enumerable: true,
+    configurable: true,
+    get() {
+      return { name: 'heyushuo' }
+    },
+    set(newVal) {
+      console.log(newVal);
+    }
+  })
 </script>
