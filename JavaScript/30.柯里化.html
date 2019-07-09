@@ -13,6 +13,14 @@
 
 </html>
 <script>
+  function currying(fn, length) {
+    var length = fn.length || length;
+    return function(...args) {
+      return args.length > length ? fn.apply(this, args) : currying(fn.bind(this, ...args), length - args.length)
+    }
+  }
+</script>
+<script>
   //实现柯里化函数,//延迟执行,把接收多个参数的函数变成接收一个单一参数的函数
   function currying(fn, length) {
     var length = length || fn.length;
