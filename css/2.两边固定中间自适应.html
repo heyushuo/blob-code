@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      width: 100%;
+      margin-bottom: 30px;
+      height: 200px;
+    }
+    /* 
+    使用浮动+BFC
+     */
+    .box1 .left {
+      width: 200px;
+      height: 100%;
+      float: left;
+      background: red;
+    }
+    .box1 .center {
+      height: 100%;
+      background: blue;
+      overflow: hidden;
+    }
+    .box1 .right {
+      width: 200px;
+      height: 100%;
+      background: yellow;
+      float: right;
+    }
+    /* 
+    使用浮动+margin
+     */
+    .box2 .left {
+      width: 200px;
+      height: 100%;
+      float: left;
+      background: red;
+    }
+    .box2 .center {
+      height: 100%;
+      background: blue;
+      margin-left: 210px;
+      margin-right: 210px;
+    }
+    .box2 .right {
+      width: 200px;
+      height: 100%;
+      background: yellow;
+      float: right;
+    }
+    /* 
+    使用定位+margin
+     */
+    .box3 {
+      position: relative;
+    }
+    .box3 .left {
+      width: 200px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      background: red;
+    }
+    .box3 .center {
+      height: 100%;
+      background: blue;
+      margin-left: 210px;
+      margin-right: 210px;
+    }
+    .box3 .right {
+      width: 200px;
+      height: 100%;
+      background: yellow;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    /* 
+  table布局方案 
+  */
+    .box4 {
+      display: table;
+    }
+    .box4 .left {
+      width: 200px;
+      height: 100%;
+      background: red;
+      display: table-cell;
+    }
+    .box4 .center {
+      height: 100%;
+      background: blue;
+      display: table-cell;
+    }
+    .box4 .right {
+      width: 200px;
+      height: 100%;
+      background: yellow;
+      display: table-cell;
+    }
+    /*
+   flex 布局
+   */
+    .box5 {
+      display: flex;
+    }
+    .box5 .left {
+      width: 200px;
+      height: 100%;
+      background: red;
+    }
+    .box5 .center {
+      height: 100%;
+      background: blue;
+      flex: 1;
+    }
+    .box5 .right {
+      width: 200px;
+      height: 100%;
+      background: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box box1">
+    <div class="left"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定</div>
+    <div class="right"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定 </div>
+    <div class="center"> 和欲和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说说</div>
+  </div>
+  <div class="box box2">
+    <div class="left"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定</div>
+    <div class="right"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定 </div>
+    <div class="center"> 和欲和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说说</div>
+  </div>
+  <div class="box box3">
+    <div class="left"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定</div>
+    <div class="center"> 和欲和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说说</div>
+    <div class="right"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定 </div>
+  </div>
+  <div class="box box4">
+    <div class="left"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定</div>
+    <div class="center"> 和欲和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说说</div>
+    <div class="right"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定 </div>
+  </div>
+  <div class="box box5">
+    <div class="left"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定</div>
+    <div class="center"> 和欲和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说和欲说说</div>
+    <div class="right"> 固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定固定 </div>
+  </div>
+</body>
+
+</html>

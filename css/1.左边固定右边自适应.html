@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .box {
+    width: 100%;
+    margin-bottom: 30px;
+    height: 200px;
+  }
+  /* 
+  1.利用BFC 
+  */
+  .box1 .left {
+    width: 200px;
+    height: 200px;
+    float: left;
+    background: red;
+  }
+  .box1 .right {
+    height: 100%;
+    overflow: hidden;
+    background: yellow;
+  }
+  /*
+  使用absolute+margin-left方法
+  */
+  .box2 {
+    position: relative;
+  }
+  .box2 .left {
+    position: absolute;
+    right: 0;
+    width: 200px;
+    height: 100%;
+    background: red;
+  }
+  .box2 .right {
+    height: 100%;
+    background: yellow;
+    margin-left: 200px;
+  }
+  /* 
+  float+margin-left方案
+   */
+  .box3 {
+    position: relative;
+  }
+  .box3 .left {
+    width: 200px;
+    height: 100%;
+    float: left;
+    background: red;
+  }
+  .box3 .right {
+    height: 100%;
+    background: yellow;
+    margin-left: 200px;
+  }
+  /* 
+  table布局方案 
+  */
+  .box4 {
+    width: 100%;
+    display: table;
+  }
+  .box4 .left {
+    width: 200px;
+    height: 100%;
+    background: red;
+    display: table-cell;
+  }
+  .box4 .right {
+    height: 100%;
+    background: yellow;
+    display: table-cell;
+  }
+  /* 
+  计算宽度calc 
+  */
+  .box5 .left {
+    width: 200px;
+    height: 100%;
+    background: red;
+    float: left;
+  }
+  .box5 .right {
+    height: 100%;
+    background: yellow;
+    float: right;
+    width: calc(100%-200px);
+    width: -webkit-calc(100%-200px);
+  }
+  /*
+   flex 布局
+   */
+  .box6 {
+    display: flex;
+  }
+  .box6 .left {
+    width: 200px;
+    height: 100%;
+    background: red;
+  }
+  .box6 .right {
+    height: 100%;
+    background: yellow;
+    flex: 1;
+  }
+</style>
+
+<body>
+  <div class="box box1">
+    <div class="left">
+    </div>
+    <div class="right">自适应自适应自适应自适应自适应自适应自适应自适应自适应 </div>
+  </div>
+  <div class="box box2">
+    <div class="left">
+    </div>
+    <div class="right">自适应自适应自适应自适应自适应自适应自适应自适应自适应 </div>
+  </div>
+  <div class="box box3">
+    <div class="left">
+    </div>
+    <div class="right">自适应自适应自适应自适应自适应自适应自适应自适应自适应 </div>
+  </div>
+  <div class="box box4">
+    <div class="left">
+    </div>
+    <div class="right">自适应自适应自适应自适应自适应自适应自适应自适应自适应 </div>
+  </div>
+  <div class="box box5">
+    <div class="left">
+    </div>
+    <div class="right">自适应自适应自适应自适应自适应自适应自适应自适应自适应 </div>
+  </div>
+  <div class="box box6">
+    <div class="left">
+    </div>
+    <div class="right">自适应自适应自适应自适应自适应自适应自适应自适应自适应 </div>
+  </div>
+</body>
+
+</html>
