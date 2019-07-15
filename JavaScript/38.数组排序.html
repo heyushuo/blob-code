@@ -63,6 +63,7 @@
     // console.log(left);
     // console.log(current);
     // console.log(right);
+    console.log(quickSort(left).concat(current, quickSort(right)));
     // console.log('-----------------------------------------');
     return quickSort(left).concat(current, quickSort(right)); //递归
   }
