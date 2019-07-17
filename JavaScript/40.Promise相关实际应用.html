@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  //1.使用promise实现一个按顺序执行的异步操作(需要想到promise的链式调用)
+  const basePromise = function(timeout, content) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(content)
+      }, timeout);
+    })
+  }
+  const base1 = basePromise(100, "bas1")
+  const base2 = basePromise(100, "bas2")
+  const base3 = basePromise(100, "bas3")
+
+  function mergePromise(arr) {
+    var result = [];
+    arr.reduce((acc, item) => {
+      console.log(acc);
+      return acc.then(() => item).then((data) => {
+        result.push(data)
+      })
+    }, Promise.resolve())
+    return result;
+  }
+  console.log(mergePromise([base1, base2, base3]));
+  //2.使用async和await实现一个按顺序执行的异步操作(需要想到promise的链式调用)
+  function awaitMerge(arr) {
+    var result = [];
+    async function run() {
+      for (const pro of arr) {
+        result.push(await pro)
+      }
+    }
+    run()
+    return result
+  }
+  console.log(awaitMerge([base1, base2, base3]));
+  // async function awaitMerge(arr) {
+  //   var result = [];
+  //   for (const pro of arr) {
+  //     result.push(await pro)
+  //   }
+  //   return result;
+  // }
+  // awaitMerge([base1, base2, base3]).then((data) => {
+  //   console.log(data);
+  // });
+</script>
+<script>
+  // https://juejin.im/post/5c7f6d1c51882561803ec6ed
+</script>
+<script>
+  /**
+   *问题:加载图片只能一次最多加载3个?
+   **/
+  var urls = ['https://www.kkkk1000.com/images/wxQrCode2.png', 'https://www.kkkk1000.com/images/getImgData/getImgDatadata.jpg', 'https://www.kkkk1000.com/images/getImgData/gray.gif', 'https://www.kkkk1000.com/images/getImgData/Particle.gif', 'https://www.kkkk1000.com/images/getImgData/arithmetic.png', 'https://www.kkkk1000.com/images/getImgData/arithmetic2.gif', 'https://www.kkkk1000.com/images/getImgData/getImgDataError.jpg', 'https://www.kkkk1000.com/images/getImgData/arithmetic.gif'];
+
+  function loadImg(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.onload = function() {
+        console.log('一张图片加载完成');
+        resolve();
+      }
+      img.onerror = reject
+      img.src = url
+    })
+  };
+  var count = 0; //当前正在进行数
+  // 封装请求的异步函数,增加计数器功能
+  function request() {
+    count++;
+    loadImg(urls.shift()).then(() => {
+      count--
+    }).then(diaodu)
+  }
+  // 负责调度的函数
+  function diaodu() {
+    if (urls.length > 0 && count <= 3) {
+      request();
+    }
+  }
+
+  function async1() {
+    for (var i = 0; i < 3; i++) {
+      request();
+    }
+  }
+  async1()
+</script>
