@@ -1,7 +1,7 @@
 
 <h2 id="0">我是问题?</h2>
 <details>
-<summary style="color:#0269c8;" ><b>查看解析</b></summary>
+<summary style="color:#0269c8;font-size:20px;" ><b>查看解析</b></summary>
 
 ### 谈谈你对前端组件化和模块化的理解
 
@@ -47,14 +47,14 @@ MVVM 是 Model-View-ViewModel 的缩写。
 在 MVVM 架构下，View 和 Model 之间并没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的交互是双向的， 因此 View 数据的变化会同步到 Model 中，而 Model 数据的变化也会立即反应到 View 上。
 ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而 View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作 DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 ![mvvm](https://img-blog.csdn.net/20180610091312850)
-<p><a href="#0"><b>返回</b></a></p>
+<p><a href="#0" style="color:#0269c8;font-size:20px;"><b>返回</b></a></p>
 </details>
 
 
 
 <h2 id="1">我是问题?</h2>
 <details>
-<summary style="color:#0269c8;" ><b>查看解析</b></summary>
+<summary style="color:#0269c8;font-size:20px;" ><b>查看解析</b></summary>
 
 ### 谈谈你对前端组件化和模块化的理解
 
@@ -100,7 +100,7 @@ MVVM 是 Model-View-ViewModel 的缩写。
 在 MVVM 架构下，View 和 Model 之间并没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的交互是双向的， 因此 View 数据的变化会同步到 Model 中，而 Model 数据的变化也会立即反应到 View 上。
 ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而 View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作 DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 ![mvvm](https://img-blog.csdn.net/20180610091312850)
-<p><a href="#1" ><b>返回</b></a></p>
+<p><a href="#1" style="color:#0269c8;font-size:20px;" ><b>返回</b></a></p>
 </details>
 
 
