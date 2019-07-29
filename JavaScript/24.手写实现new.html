@@ -21,8 +21,9 @@
     Object.setPrototypeOf(obj, Con.prototype)
     // obj.__proto__ = Con.prototype;
     // 并且改变原数组arguments现在以及去掉第一个参数了
-    Con.apply(obj, arguments);
-    return obj
+    var result = Con.apply(obj, arguments);
+    //判断构造函数是否返回了对象,如果返回了对象就是返回的对象,如果没有返回就是新创建的对象
+    return Object.prototype.toString.call(result) == '[object Object]' ? result : obj;
   }
 
   function Person(name, age) {

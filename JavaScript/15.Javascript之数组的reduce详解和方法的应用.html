@@ -115,17 +115,17 @@
 
     // 
 
-    // function flat(array) {
-    //     var result = [];
-    //     for (let i = 0; i < array.length; i++) {
-    //         var item = array[i]
-    //         if (Array.isArray(item)) {
-    //             result = result.concat(flat(item));
-    //         } else {
-    //             result.push(item)
-    //         }
-    //     }
-    //     return result
-    // }
+    function flat1(array) {
+        var result = [];
+        for (let i = 0; i < array.length; i++) {
+            var item = array[i]
+            if (Array.isArray(item)) {
+                result = result.concat(flat1(item));
+            } else {
+                result.push(item)
+            }
+        }
+        return result
+    }
     console.log(flat(doubleArray));
 </script>
