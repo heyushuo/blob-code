@@ -120,3 +120,77 @@ function selection(array) {
   }
   return array;
 }
+//函数柯里化
+function currying(fn, length) {
+  length = length || fn.length;
+  return function() {
+    var args = [...arguments];
+    return args.length >= length ? fn.apply(this, args) : currying(fn.bind(this, ...args), length - args.length)
+  }
+}
+var add = currying(function(a, b, c) {
+  return a + b + c
+});
+add(1)(2)(3)
+// 我们看一个常见的面试题， 用 JS 实现一个无限累加的函数 add， 示例如下：
+// add(1); // 1
+// add(1)(2); // 3
+// add(1)(2)(3)； // 6
+// add(1)(2)(3)(4)； // 10 
+function add(a) {
+  function sum(b) {
+    a = a + b;
+    return sum;
+  }
+  sum.toString = function(params) {
+    return a
+  }
+  return sum
+}
+
+function add(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    }
+  }
+}
+console.log(add(1)(2)(3)); // 6
+console.log("----------------------------------------------------");
+//实现promise.all
+Promise.prototype.all = function(promiseAll) {
+  return new Promise((resolve, reject) => {
+    var count = 0;
+    var result = [];
+    for (let i = 0; i < promiseAll.length; i++) {
+      const element = promiseAll[i];
+      Promise.resolve(element).then((res) => {
+        console.log("我是" + i);
+        count++;
+        result[i] = res
+        if (count == promiseAll.length) {
+          resolve(result)
+        }
+      }).catch((err) => {
+        reject(err)
+      })
+    }
+  })
+}
+Promise.all(['heysuhuo', '23', 234234])
+// 给定 nums = [2, 7, 11, 15], target = 9
+// 因为 nums[0] + nums[1] = 2 + 7 = 9
+// 所以返回 [0, 1]
+function heyu() {
+  var nums = [2, 7, 11, 15]
+  var target = 9;
+  var result = []
+  for (let i = 0; i < nums.length; i++) {
+    const el = target - nums[i];
+    if (nums.indexOf(el) > -1) {
+      result = [nums[i], nums[nums.indexOf(el)]]
+    }
+  }
+  return result
+}
+console.log(heyu());

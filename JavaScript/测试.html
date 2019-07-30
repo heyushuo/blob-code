@@ -158,3 +158,33 @@
   //浅拷贝
   arr.slice() //方法不修改原数组并返回一个新数组
 </script>
+<script>
+  var heyushuo = function(promiseAll) {
+    console.log(123);
+    return new Promise((resolve, reject) => {
+      var count = 0;
+      var result = [];
+      for (let i = 0; i < promiseAll.length; i++) {
+        const element = promiseAll[i];
+        Promise.resolve(element).then((res) => {
+          console.log("我是" + i);
+          count++;
+          result[i] = res
+          if (count == promiseAll.length) {
+            resolve(result)
+          }
+        }).catch((err) => {
+          reject(err)
+        })
+      }
+    })
+  }
+  var a1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("我是何玉硕")
+    }, 2000);
+  })
+  heyushuo(['heysuhuo', '23', a1]).then((data) => {
+    console.log(data);
+  })
+</script>

@@ -24,14 +24,12 @@
       name: "kebi",
       age: 36
     },
-    say: function () {
+    say: function() {
       console.log("heyushuo");
     },
     reg: new RegExp(/[0-9]/),
     date: new Date()
   };
-
-
   /**
    *     浅复制
    **/
@@ -45,31 +43,24 @@
     }
     return object;
   }
-
   console.log(clone(info));
   console.log(clone("213"));
   console.log(clone([1, 2, 3, 4, 5]));
-
   //浅复制
-
   /**
    *    将所有可枚举的属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
    *    如果目标对象中的属性具有相同的键，则属性将被源中的属性覆盖。后来的源的属性将类似地覆盖早先的属性
    **/
-
   var target = {};
   Object.assign(target, info);
   console.log("-----");
-
   console.log(target);
-
   // Object.create的详细解释 
   var heyush = Object.create(info);
   var heyush1 = Object.create(info);
   // heyush.arr[0] = 9;
   // heyush.age = 100;
   console.log(heyush);
-
   console.log(info);
   /**
    *      concat()这个方法会先创建当前数组一个副本，然后将接收到的参数
@@ -82,13 +73,13 @@
    *      参数指定位置开始到当前数组末尾的所有项。如果有两个参数，该方法返回起始和结束位置之间的项—
    *      —但不包括结束位置的项。注意，slice()方法不会影响原始数组。
    **/
-
   /**
    *    深复制
    **/
   //  1.最简单的方式
   // JSON对象是ES5中引入的新的类型（支持的浏览器为IE8+），JSON对象parse方法可以将JSON字符串反序列化成JS对象，
   // stringify方法可以将JS对象序列化成JSON字符串，借助这两个方法，也可以实现对象的深拷贝。
+  console.log('zhengze');
   var str = JSON.stringify(info);
   console.log(str);
   console.log(JSON.parse(str));
@@ -97,7 +88,6 @@
    *    大多数情况下，上面的就可以满足要求了，但一些时候，我们需要把函数，
    *    正则等特殊数据类型也考虑在内，或者当前环境不支持JSON时，上面的方法也就不适用了。这时，我们可以通过递归来实现对象的深层复制
    **/
-
   function deepCopy(obj) {
     if (typeof obj != "object") {
       return "need a object";
@@ -112,7 +102,6 @@
         } else {
           object[i] = deepCopy(obj[i]);
         }
-
       } else {
         object[i] = obj[i];
       }
@@ -120,16 +109,12 @@
     return object;
   }
   console.log("------");
-
   console.log(deepCopy(info));
-
   //合并对象
   var target = {};
   Object.assign(target, info);
   console.log(target);
-
   //实现的也是浅复制
-
   function mergeObj(target, obj) {
     if (typeof obj != "object") {
       return "need a object";
@@ -153,6 +138,5 @@
     d: "8989",
     name: ["sdf", 23, 123]
   });
-
   console.log(heyushuo);
 </script>
