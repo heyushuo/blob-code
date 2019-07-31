@@ -206,3 +206,12 @@ function test(str) {
   }
 }
 console.log(test('12345'));
+var arr1 = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]
+var arr2 = [{ id: 1 }, { id: 2 }, { id: 3 }]
+var newArr = arr2.map((item) => item.id)
+var result = arr1.filter((item, index) => {
+  var { id } = item;
+  return !newArr.includes(id)
+})
+console.log(result);
+
