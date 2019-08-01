@@ -82,7 +82,7 @@
    **/
   //  1. 字符串和数字之间的相等比较 (字符串会先转成Number在进行比较)
   // 2.其他类型和布尔类型之间的相等比较(如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值)
-  //3.null==undefined
+  //3.null==undefined //规范中提到， 要比较相等性之前，不能将 null 和 undefined 转换成其他任何值，并且规定null 和 undefined 是相等的。
   //通过如下判断null 和undefined比较合适
   if (a == null) {
     // ..
