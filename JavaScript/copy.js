@@ -214,4 +214,6 @@ var result = arr1.filter((item, index) => {
   return !newArr.includes(id)
 })
 console.log(result);
-
+/**   
+ *   实现一个通用的事件类,注册事件,触发事件,解绑事件
+ */

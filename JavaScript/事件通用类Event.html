@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  class Event {
+    constructor(props) {
+      this.eventObj = {}
+    }
+    on(type, callback) {
+      //让fns和this.eventObj[type] 指向同一个地址
+      var fns = (this.eventObj[type] = this.eventObj[type] || []);
+      if (fns.indexOf(callback) == -1) {
+        fns.push(callback)
+      }
+      console.log(this.eventObj);
+      return this;
+    }
+    trigger(type, data) {
+      if (Array.isArray(this.eventObj[type])) {
+        this.eventObj[type].forEach((fn) => {
+          fn(data)
+        })
+      }
+    }
+    off(type, callback) {
+      var fns = this.eventObj[type];
+      var index = fns.indexOf(callback);
+      if (index != -1) {
+        fns.splice(index, 1)
+      }
+      console.log(this.eventObj);
+      return this;
+    }
+    once(type, callback) {
+      let wFn = function(...args) {
+        callback.apply(null, args);
+        //解绑事件
+        this.off(event, wFn)
+      }
+      //绑定事件,内部进行了执行事件和解绑事件
+      this.on(event, wFn)
+    }
+  }
+  const event = new Event();
+  var a = function() {
+    console.log('1');
+  }
+  var b = function() {
+    console.log('2');
+  }
+  event.on('test', a);
+  event.on('test', b);
+  event.trigger('test', 'hello world');
+  // event.off('test', b)
+  var arr = [1, 2, 3, 4, 5, 10],
+    target = 10;
+  //二分查找
+  function Search(arr, target) {
+    let s = 0;
+    let e = arr.length - 1;
+    let m = Math.floor((s + e) / 2)
+    while (s < e && arr[m] !== target) {
+      if (arr[m] > target) {
+        e = m - 1
+      } else {
+        s = m + 1
+      }
+      m = Math.floor((s + e) / 2)
+    }
+    if (arr[m] == target) {
+      console.log('找到了,位置%s', m);
+      return m;
+    } else {
+      console.log('没找到', t);
+      return -1;
+    }
+  }
+  Search(arr, target)
+</script>
