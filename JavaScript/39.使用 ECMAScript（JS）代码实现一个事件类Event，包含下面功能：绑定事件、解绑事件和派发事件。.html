@@ -49,6 +49,16 @@
       }
       return this
     }
+    //once(event,fn)：为指定事件注册一个单次监听器，单次监听器最多只触发一次，触发后立即解除监听器；
+    //意思是在执行callback的时候把事情从数组中清除掉
+    once(type, callback) {
+      var onceFn = (...args) => {
+        callback.apply(args);
+        this.off(type, onceFn)
+      }
+      this.on(type, onceFn);
+      return this;
+    }
   }
   // 测试用例
   const event = new Event();
