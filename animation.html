@@ -37,9 +37,14 @@
 
 </html>
 <script>
-  // var arr = document.querySelectorAll('p');
-  // for (let i = 0; i < arr.length; i++) {
-  //   const element = arr[i];
-  //   element.className = `a a${i+1}`
-  // }
+  function fn1() {
+    console.log(1);
+  }
+
+  function fn2() {
+    console.log(2);
+  }
+  fn1.call(fn2)
+  fn1.call.call(fn2)
+  fn1.call.call.call.call(fn2)
 </script>
