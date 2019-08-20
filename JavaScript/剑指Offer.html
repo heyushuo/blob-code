@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  // 大家都知道斐波那契数列，现在要求输入一个整数 n，请你输出斐波那契数列的第 n 项。
+  function Fibonacci(n) {
+    let f = 0; //第一个值 n-2
+    let g = 1; //第二个值 n-1
+    while (n--) {
+      g = g + f; //第二个值加第一个值
+      f = g - f; //得到g的前一个值
+    }
+    return f;
+  }
+  // g = 1 g = 1 + 1 g = 2 + 1 g = 3 + 2
+  // f = 1 f = 1 f = 3 - 1 = 2 g = 5 - 2 = 3
+  // console.log(Fibonacci(1));
+  // console.log(Fibonacci(2));
+  // console.log(Fibonacci(3));
+  // console.log(Fibonacci(4));
+  //递归的思路找到什么情况下结束递归
+  function Permutation(str) {
+    // write code here
+    let res = [];
+    let len = str.length;
+    if (len === 0) {
+      res.push();
+    } else if (len === 1) {
+      res.push(str);
+    } else {
+      let obj = {};
+      for (let i = 0; i < len; i++) {
+        //去除单独的那个元素
+        let c = str[i];
+        if (!obj[c]) {
+          //这一段是干啥的呢? 把其他元素进行组合去除c=arr[i]
+          let newStr = str.slice(0, i) + str.slice(i + 1, len);
+          console.log(newStr);
+          let l = Permutation(newStr);
+          for (let j = 0, lenL = l.length; j < lenL; j++) {
+            res.push(c + l[j]);
+          }
+          obj[c] = true;
+        }
+      }
+    }
+    return res;
+  }
+  console.log(Permutation('abc'));
+</script>
