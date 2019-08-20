@@ -15,16 +15,16 @@
 <script>
   // 大家都知道斐波那契数列，现在要求输入一个整数 n，请你输出斐波那契数列的第 n 项。
   function Fibonacci(n) {
-    let f = 0; //第一个值 n-2
+    let f = 1; //第一个值 n-2
     let g = 1; //第二个值 n-1
-    while (n--) {
+    while (--n) {
       g = g + f; //第二个值加第一个值
       f = g - f; //得到g的前一个值
     }
     return f;
   }
   // g = 1 g = 1 + 1 g = 2 + 1 g = 3 + 2
-  // f = 1 f = 1 f = 3 - 1 = 2 g = 5 - 2 = 3
+  // f = 1 f = 1 f = 3 - 1 = 2 f = 5 - 2 = 3
   // console.log(Fibonacci(1));
   // console.log(Fibonacci(2));
   // console.log(Fibonacci(3));
@@ -55,7 +55,7 @@
         }
       }
     }
-    return res;
+    return res; 
   }
   console.log(Permutation('abc'));
 </script>
