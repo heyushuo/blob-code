@@ -80,3 +80,39 @@ function isDouuble(str) {
   }
   return stack.size() === 0;
 }
+
+var str = "(([]()[])[])";
+var stack = [];
+for (let i = 0; i < str.length; i++) {
+  var item = str[i]
+  if (item == '(' || item == '[') {
+    stack.push(item)
+  } else {
+    var lastItem = stack[stack.length - 1]
+    if (countNum(item) + countNum(lastItem) == 0) {
+      console.log(lastItem + item);
+      stack.pop(); //抵消之后需要把队列中的删除
+    } else {
+      stack.push(item)
+    }
+  }
+}
+//为了方便匹配每个字符，将字符用数字表示
+function countNum(chr) {
+  switch (chr) {
+    case '(':
+      return 1;
+      break;
+    case ')':
+      return -1;
+      break;
+    case '[':
+      return 2;
+      break;
+    case ']':
+      return -2;
+      break;
+    default:
+      return 0;
+  }
+}
