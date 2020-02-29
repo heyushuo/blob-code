@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>动态规划</title>
-  </head>
 
-  <body></body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>动态规划</title>
+</head>
+
+<body></body>
+
 </html>
 <script>
   // https://www.cnblogs.com/Skyar/p/5955013.html
@@ -91,4 +93,28 @@
     };
   }
   console.log(lcs("12312asdfasfd", "sadfsdf123"));
+</script>
+<script>
+  function max(a, b) {
+    return (a > b) ? a : b;
+  }
+
+  function knapsack(capacity, size, value, n) {
+    if (n == 0 || capacity == 0) {
+      return 0;
+    }
+    if (size[n - 1] > capacity) {
+      return knapsack(capacity, size, value, n - 1);
+    } else {
+      return max(value[n - 1] +
+        knapsack(capacity - size[n - 1], size, value, n - 1),
+        knapsack(capacity, size, value, n - 1));
+    }
+  }
+  var value = [4, 5, 10, 11, 13];
+  var size = [3, 4, 7, 8, 9];
+  var capacity = 16;
+  var n = 5;
+  console.log('--------------------------------------------------')
+  console.log(knapsack(capacity, size, value, n));
 </script>
