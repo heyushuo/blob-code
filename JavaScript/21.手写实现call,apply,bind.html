@@ -14,12 +14,12 @@
   // 手写实现call,apply,bind
   // 手写实现call方法,实现思路就是下边这段话所描述的
   // 引用你不知道的JavaScript中的一段话 当函数引用有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象。
-  Function.prototype.myCall = function(context) {
+  Function.prototype.myCall = function(context) { 
     context = context || window; // 如果context传的是null或者undefined则默认context是window
     context.fn = this; //这里this指的是调用myCall的函数;
     var args = [...arguments].slice(1); //把arguments伪数组变成数组,在截取除了第一个之后的参数
     // var args =Array.prototype.slice.call(obj,1);//这样写也可以
-    var result = context.fn(...args); //立即执行函数,执行函数的时候把参数传入
+    var result = context.fn(... args); //立即执行函数,执行函数的时候把参数传入
     delete context.fn; //把函数删除掉,为了还原外部obj对象,把添加到他上边的属性在删除掉
     return result;
   };
@@ -46,7 +46,7 @@
     context.fn = this;
     var args = arguments[1]; // 取传参数的第二个参数
     var result;
-    if (args) {
+    if (args.length>0) {
       result = context.fn(...args);
     } else {
       result = context.fn();
