@@ -31,7 +31,7 @@
   function deepCopy(obj) {
     if (Object.prototype.toString.call(obj) != "[object Object]" && Object.prototype.toString.call(obj) != "[object Array]") {
       console.log('需要一个对象或者数组');
-      return;
+      return obj;
     }
     var result = obj.constructor == Array ? [] : {};
     for (const i in obj) {
@@ -52,7 +52,8 @@
     date: new Date(),
     fun: function() {},
     reg: /a/,
-    a: null
+    a: null,
+    b:undefined
   }
   var deepData = deepCopy(copyObj)
   copyObj.name = "keb";
