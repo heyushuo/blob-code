@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="box" id="box">
+  </div>
+</body>
+
+</html>
+<style>
+  .box {
+    width: 10px;
+    height: 10px;
+    background: black;
+  }
+</style>
+<!-- <script>
+  var urls = [10, 2000, 3000, 1000, 500, 300, 1100, 2000];
+
+  function loadImg(timeout) {
+    console.log(timeout);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // console.log(timeout);
+        resolve(timeout)
+      }, timeout);
+    })
+  }
+
+  function Queue(urls) {
+    var count = 0;
+    var taskQueue = []
+    //执行增加一个
+    count++;
+
+    function run() {
+      //从数组最前边移除一个
+      loadImg(urls.shift()).then((res) => {
+        //如果有一个加载成功了,那就count就减1
+        count--;
+        //递归调用run
+        console.log('成功一个了:' + res);
+        if (taskQueue.length) {
+          var task = taskQueue.shift();
+          task();
+        }
+      })
+    }
+    if (urls.length > 0 && count <= 3) {
+      run()
+    } else {
+      taskQueue.push(() => run())
+    }
+  }
+  for (var i = 0; i < 8; i++) {
+    Queue(urls);
+  }
+  // class Queue1 {
+  //   constructor(urls) {
+  //     this.count = 0;
+  //     this.taskQueue = [];
+  //     this.urls = urls;
+  //   }
+  //   init() {
+  //     if (this.urls.length > 0 && this.count <= 3) {
+  //       this.count++
+  //       this.run()
+  //     } else {
+  //       this.taskQueue.push(this.run)
+  //     }
+  //   }
+  //   run() {
+  //     // 从数组最前边移除一个
+  //     loadImg(this.urls.shift()).then((res) => {
+  //       //如果有一个加载成功了,那就count就减1
+  //       this.count--;
+  //       //递归调用run
+  //       console.log('成功一个了:' + res);
+  //       if (this.taskQueue.length) {
+  //         var task = this.taskQueue.shift();
+  //         task.call(this);
+  //       }
+  //     })
+  //   }
+  // }
+  // var aa = new Queue1(urls)
+  // for (var i = 0; i < 8; i++) {
+  //   aa.init();
+  // }
+</script> -->
+<script>
+  function* gen() {
+    let a = yield 111;
+    console.log(a);
+    let b = yield 222;
+    console.log(b);
+    let c = yield 333;
+    console.log(c);
+    let d = yield 444;
+    console.log(d);
+  }
+  let t = gen();
+  //next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值
+  console.log(t.next());
+  console.log(t.next(2));
+  // t.next(1); //第一次调用next函数时，传递的参数无效// { value: 'hello', done: false }
+  // t.next(); //a输出2;// { value: 'hello', done: false }
+  // t.next(); //b输出3;// { value: 'hello', done: false }
+  // t.next(); //c输出4;// { value: 'hello', done: false }
+  // t.next(); //d输出5;// { value: 'hello', done: false }
+  function debounce(func, wait, immediate = true) {
+    let timer;
+    // 延迟执行函数
+    const later = (context, args) => setTimeout(() => {
+      timer = null; // 倒计时结束
+      console.log('倒计时结束了', immediate);
+      if (!immediate) {
+        alert(22)
+        func.apply(context, args);
+        //执行回调
+        context = args = null;
+      }
+    }, wait);
+    let debounced = function(...params) {
+      let context = this;
+      let args = params;
+      if (!timer) {
+        timer = later(context, args);
+        if (immediate) {
+          //立即执行
+          func.apply(context, args);
+          console.log(func);
+        }
+      } else {
+        clearTimeout(timer);
+        console.log("执行timeout");
+        //函数在每个等待时延的结束被调用
+        timer = later(context, args);
+      }
+    }
+    debounced.cancel = function() {
+      clearTimeout(timer);
+      timer = null;
+    };
+    return debounced;
+  };
+  var a = function() {
+    console.log(111111);
+  }
+  var box = document.getElementById("box");
+  var aa = debounce(a, 500, true)
+  box.onclick = function() {
+    aa()
+  }
+</script>
+<!-- <script>
+  var i = 1
+
+  function step(timestamp) {
+    //code...
+    i = i + 5
+    var box = document.getElementById("box");
+    box.style.transform = "translateX(" + i + 'px' + ")"
+    // setTimeout(() => {
+    //   step()
+    // }, 30);
+    window.requestAnimationFrame(step);
+  }
+  // setTimeout(() => {
+  //   step()
+  // }, 30);
+  window.requestAnimationFrame(step);
+</script> -->
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js" type="text/javascript"></script>
+  <style>
+    div {
+      width: 60px;
+      height: 60px;
+      margin: 5px;
+      float: left;
+    }
+  </style>
+  <title>事件委托</title>
+</head>
+
+<body>
+  <h2>事件绑定的2种方式</h2>
+  <ul id="resources">
+    <li data-index="1">rerewr</li>
+    <li data-index="2">54555</li>
+    <li data-index="3"> 2242</li>
+  </ul>
+  <script type="text/javascript">
+    (function() {
+      var oaa = document.querySelectorAll("#resources")[0];
+      oaa.addEventListener("click", handler, false);
+
+      function handler(e) {
+        // var x= e.target;
+        var e = e || window.event;
+        var target = e.target || e.srcElement;
+        if (target.nodeName.toLowerCase() === "li") {
+          //alert("事件委托020"+x);
+          target.style.background = "red";
+          console.log(target.getAttribute('data-index'))
+          e.preventDefault();
+        }
+      }
+    })()
+  </script>
+</body>
+
+</html>
+<script>
+  var obj1 = {
+    objNumber: new Number(1),
+    number: 1,
+    objString: new String('ss'),
+    string: 'stirng',
+    objRegexp: new RegExp('\\w'),
+    regexp: /w+/g,
+    date: new Date(),
+    function: function() {},
+    array: [{ a: 1 }, 2],
+  }
+  obj1.a = obj1
+
+  function deepCopy(obj, hash = new WeakMap()) {
+    if (hash.has(obj)) {
+      return hash.get(obj)
+    }
+    if (obj === null) return null; //null 的情况
+    if (obj instanceof RegExp) return new RegExp(obj);
+    if (obj instanceof Date) return new Date(obj);
+    if (obj instanceof Number) return obj;
+    if (obj instanceof String) return obj;
+    if (obj instanceof Boolean) return obj;
+    if (obj instanceof RegExp) return obj;
+    var result = Array.isArray(obj) ? [] : {};
+    hash.set(obj, result)
+    for (const i in obj) {
+      console.log(i);
+      if (obj.hasOwnProperty(i)) {
+        //排除函数,正则,日期,null等
+        //只有数组和对象的时候进行深拷贝
+        console.log(obj[i]);
+        if (typeof obj[i] == 'object') {
+          result[i] = deepCopy(obj[i], hash);
+        } else {
+          result[i] = obj[i];
+        }
+      }
+    }
+    return result;
+  }
+  var result = deepCopy(obj1)
+  console.log(result);
+  result.objNumber = 2
+  console.log(obj1.objNumber);
+  console.log(result.objNumber);
+</script>
+<script>
+  //ceshi
+</script>
+<script>
+  function insertNode(node, newNode) {
+    if (newNode.key < node.key) {
+      //值小于要插入的,那这个插入的在node的左节点
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode)
+      }
+    }
+  }
+
+  // 可以修改
+  function insertNode(node, newNode) {
+    while (true) {
+      if (newNode.key < node.key) {
+        //值小于要插入的,那这个插入的在node的左节点
+        if (node.left === null) {
+          node.left = newNode;
+          break;
+        } else {
+          node = node.left
+        }
+      } else {
+        if (node.right === null) {
+          node.right = newNode;
+        } else {
+          node = node.right
+          break;
+        }
+      }
+    }
+  }
+</script>
