@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+  // set和WeakSet set方法：add,has,delete,clear（可遍历）
+  // WeakSet: add,has,delete（不可遍历） 接受的成员不同,WeakSet只接受成员是对象
+  var weak = new WeakSet();
+  weak.add({})
+  new Set([1])
+  // new WeakSet([1]) //不行
+  new Map([
+    ["foo", 1]
+  ]);
+  new Map([
+    [{ a: 'heyushuo' }, 1]
+  ]);
+  var b = 10;
+  (function() {
+    console.log(b);
+   var  b = 20;
+    
+  })();
+</script>
