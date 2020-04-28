@@ -1,15 +1,13 @@
-for (let index = 0; index < 100; index++) {
-  var str = `
-#
-<p id="${index}"></p>
-
-### [](#${index})
-<details>
-<summary><b>查看解析</b></summary>
-
-<p><a href="#${index}" ><b>返回</b></a></p>
-</details>\n
-#\n\n
-`
-  console.log(str);
+var b = {
+  'valueOf': function() {
+    var i = 1;
+    return function() {
+      return i++
+    }
+  }()
 }
+// console.log(b.valueOf());
+
+console.log(b == 1);
+console.log(b == 2);
+console.log(b == 3);
