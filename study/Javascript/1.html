@@ -20,8 +20,8 @@
     background: black;
   }
 </style>
-<!-- <script>
-  var urls = [10, 2000, 3000, 1000, 500, 300, 1100, 2000];
+<script>
+  var urls = [2000, 2000, 2000, 3000, 300, 300, 1100, 2000];
 
   function loadImg(timeout) {
     console.log(timeout);
@@ -52,12 +52,15 @@
         }
       })
     }
+
     if (urls.length > 0 && count <= 3) {
       run()
     } else {
       taskQueue.push(() => run())
     }
   }
+
+
   for (var i = 0; i < 8; i++) {
     Queue(urls);
   }
@@ -93,7 +96,7 @@
   // for (var i = 0; i < 8; i++) {
   //   aa.init();
   // }
-</script> -->
+</script>
 <script>
   function* gen() {
     let a = yield 111;
