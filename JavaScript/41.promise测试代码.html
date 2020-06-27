@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+</html>
+<!-- <script>
+  // new Promise((resolve, reject) => {
+  //   resolve(1)
+  // }).then((res) => {
+  //   console.log(res);
+  //   return new Promise((resolve, reject) => {
+  //     resolve(1)
+  //   })
+  // }).then((err) => {
+  //   console.log(err);
+  // });
+  new Promise((resolve, reject) => {
+    resolve(1);
+  })
+    .then((res) => {
+      return function () {
+        alert(3);
+      };
+    })
+    .then((err) => {
+      console.log(err);
+    });
+</script> -->
+<!-- <script>
+  const timeout = (ms) =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    });
+  const ajax1 = () =>
+    timeout(3000).then(() => {
+      console.log("1");
+      return 1;
+    });
+  const ajax2 = () =>
+    timeout(1000).then(() => {
+      console.log("2");
+      return 2;
+    });
+  const ajax3 = () =>
+    timeout(2000).then(() => {
+      console.log("3");
+      return 3;
+    });
+  // 方法二
+  // function mergePromise(arr) {
+  //   var result = [];
+  //   var sequence = Promise.resolve(); // Promise.resolve 方法调用时不带参数，直接返回一个 resolved 状态的 Promise 对象。
+  //   for (let i = 0; i < arr.length; i++) {
+  //     // then代表成功arr[i]是成功的函数,直接执行
+  //     sequence = sequence.then(arr[i]).then((res) => {
+  //       result.push(res);
+  //       return result;
+  //     });
+  //   }
+  //   return sequence;
+  // }
+  function mergePromise(arr) {
+    var result = [];
+    return arr.reduce((init, next) => {
+      return init.then(next).then((res) => {
+        result.push(res);
+        return result;
+      });
+    }, Promise.resolve());
+    // return result
+  }
+  mergePromise([ajax1, ajax2, ajax3]).then((data) => {
+    console.log("done");
+    console.log(data); // data 为 [1, 2, 3]
+  });
+</script> -->
+<!-- <script>
+  const request = (ms) =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(ms);
+      }, ms);
+    });
+
+  var urls = [1000, 500, 900, 2000, 1500, 300, 400, 3000];
+
+  function sendRequest(urls, max, callback) {
+    var count = 0; //当前有多少个请求
+    var result = []; //请求的记过
+    function run() {
+      // 队列已满或没有待请求
+      if (urls.length == 0) return;
+      var url = urls.shift(); //拿出一个元素
+      count++; //并行的 count 有几个
+      console.log(count);
+
+      request(url)
+        .then((res) => {
+          //把结果添加进来
+          result.push(res);
+          count--;
+          //有一个请求成功了,那在添加一个请求
+          if (count == 0 && urls.length == 0) {
+            callback(result);
+          } else {
+            run();
+          }
+        })
+        .catch((err) => {});
+    }
+    //先来max个请求,
+    while (count < max) {
+      run();
+    }
+  }
+  sendRequest(urls, 3, function (res) {
+    console.log(res);
+  });
+</script> -->
+
+<script>
+  const timeout = (ms) =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    });
+  const ajax1 = () =>
+    timeout(3000).then(() => {
+      console.log("1");
+      return 1;
+    });
+
+  const ajax2 = () =>
+    timeout(1000).then(() => {
+      console.log("2");
+      return 2;
+    });
+
+  const ajax3 = () =>
+    timeout(2000).then(() => {
+      console.log("3");
+      return 3;
+    });
+
+  // async function mergePromise(arr) {
+  //   var result = [];
+  //   for (item of arr) {
+  //     result.push(await item());
+  //   }
+  //   return result;
+  // }
+
+  // function mergePromise(arr) {
+  //     var result = [];
+  //     var promiseSquene = Promise.resolve();
+  //     for (let i = 0;i<arr.length;i++) {
+  //       promiseSquene =  promiseSquene.then(()=>{
+  //         return arr[i]()
+  //       }).then((res) => {
+  //         result.push(res);
+  //         return result
+  //       })
+  //     }
+  //     return promiseSquene;
+  //   }
+
+  // function mergePromise(arr) {
+  //   var result = [];
+  //   var sequence = Promise.resolve(); // Promise.resolve 方法调用时不带参数，直接返回一个 resolved 状态的 Promise 对象。
+  //   for (let i = 0; i < arr.length; i++) {
+  //     // then代表成功arr[i]是成功的函数,直接执行
+  //     sequence = sequence.then(arr[i]).then((res) => {
+  //       result.push(res);
+  //       return result;
+  //     });
+  //   }
+  //   return sequence;
+  // }
+  mergePromise([ajax1, ajax2, ajax3]).then((data) => {
+    console.log("done");
+    console.log(data); // data 为 [1, 2, 3]
+  });
+</script>
