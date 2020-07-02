@@ -12,7 +12,7 @@
 </body>
 
 </html>
-<script>
+<!-- <script>
   // Vue内部实现响应式使用了 Object.defineProperty(),通过这个函数可以监听到set和get的事件
 
   function observe(obj) {
@@ -36,14 +36,14 @@
       //可修改
 
       // writable: true,
-      get: function (value) {
+      get: function(value) {
         console.log('获取 值');
         if (Dep.target) {
           dp.addSub(Dep.target)
         }
         return val;
       },
-      set: function (newVal) {
+      set: function(newVal) {
         console.log('设置 值');
         val = newVal;
         // 执行watcher的update方法
@@ -110,4 +110,61 @@
 
   //跟新dom
   obj.name = 'heyushuo'
+</script> -->
+<script>
+  console.log('----------------------');
+</script>
+<script>
+  // 初始数组
+  const arr = [1, 'a', 3, 4];
+
+  // 监听数组
+  const newArr = new Proxy(arr, {
+    get: function(target, key, receiver) {
+      console.log('执行了 get 操作')
+      console.log(key);
+      return Reflect.get(target, key, receiver);
+    },
+    set: function(target, key, value, receiver) {
+      console.log('执行了 set 操作')
+      return Reflect.set(target, key, value, receiver);
+    },
+  });
+  newArr[0]
+  newArr.push(123123)
+  // console.log(arr);
+</script>
+<!-- <script>
+  var obj = {};
+  var value = '';
+  Object.defineProperty(obj, "num", {
+    get: function() {
+      console.log('执行了 get 操作')
+      return value;
+    },
+    set: function(newValue) {
+      console.log('执行了 set 操作')
+      value = newValue;
+    },
+    writeable: true,
+    enumerable: true,
+    configurable: true
+  });
+
+  obj.num = 1 // 执行了 set 操作
+  console.log(obj.num); // 执行了 get 操作 // 1
+</script> -->
+
+<script>
+  var _data = this.datalist;
+  var arr = [];
+
+  for (let i = 0; i < _daata.length; i++) {
+    const element = _daata[i];
+    var total = element.reduce((pre, cur) => {
+      return cur.number * Number(cur.salePrice)
+    }, 0)
+    arr.push(total)
+  }
+  console.log(arr);
 </script>

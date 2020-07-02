@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  let template = '我是{{name}}，年龄{{age}}，性别{{sex}}';
+  let data = {
+    sex: '男',
+    age: 18,
+    name: 'kebi',
+
+  }
+
+  function render(template, data) {
+    var str = template;
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        var reg = new RegExp('{{' + key + '}}')
+        str = str.replace(reg, data[key])
+      }
+    }
+    return str;
+  }
+  console.log(render(template, data));
+
+  function render(template, data) {
+    const reg = /\{\{(\w+)\}\}/; // 模板字符串正则 // \w+都是匹配数字和字母下划线的多个字符；
+    if (reg.test(template)) { // 判断模板里是否有模板字符串
+      const name = reg.exec(template)[1]; // 查找当前模板里第一个模板字符串的字段
+      template = template.replace(reg, data[name]); // 将第一个模板字符串渲染
+      return render(template, data); // 递归的渲染并返回渲染后的结构
+    }
+    return template; // 如果模板没有模板字符串直接返回
+  }
+  //一行代码实现
+
+  //懒惰模式正则：
+  //src=".*?"
+  //结果：src="test.jpg"
+  //因为匹配到第一个"就结束了一次匹配。不会继续向后匹配。因为他懒惰嘛。
+  function render(template, data) {
+    return template.replace(new RegExp('{{(.*?)}}', 'g'), (match, key) => data[key.trim()]);
+</script>
