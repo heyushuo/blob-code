@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+    <h2>23123</h2>
+  </div>
+</body>
+
+</html>
+<script>
+  console.log(document.body.clientHeight);
+  console.log(document.documentElement.clientHeight);
+  //offsetTop是元素与offsetParent的距离，循环获取直到页面顶部
+  //获取一个元素到顶部的距离
+  function getTop(e) {
+    var T = 0;
+    while (e) {
+      T += e.offsetTop;
+      e = e.offsetParent
+    }
+    return T;
+  }
+  //获取scrollTop 滚动的高度
+  var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  //获取浏览器可视窗口的高度
+  document.documentElement.clientHeight //值得是根节点，即html节点。
+  document.body.clientHeight //指的是html节点中的body节点,根据内容高度height变化
+  Element.getBoundingClientRect() //方法返回元素的大小及其相对于视口的位置。
+  // width height left top right bottom
+  //元素的宽度
+  //这一对属性指的是元素的border+padding+content的宽度和高度
+  offsetWidth和offsetHeight
+  //这个只读属性是一个元素内容高度的度量，包括由于溢出导致的视图中不可见内容。
+  Element.scrollHeight
+  //如果下边相等说明已经滚动到底部了
+  element.scrollHeight - element.scrollTop === element.clientHeight
+</script>
