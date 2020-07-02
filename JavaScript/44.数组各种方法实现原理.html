@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+  //map方法
+  var arr = [1, 2, 3, 4, 5]
+  var newArr = arr.map(function(item, index) {
+    return item * 2
+  }, arr)
+  console.log(newArr);
+
+  Array.prototype.myMap = function(fn, context) {
+    // this 就是数组
+    let result = [];
+    for (let i = 0; i < this.length; i++) {
+      var item = this[i]
+      //map第二个参数context是this指向
+      //fn函数的三个参数分别为/当前值/索引/数组本省
+      result.push(fn.call(context, item, i, this))
+    }
+    return result
+  }
+  var newArr1 = arr.myMap(function(item, index) {
+    return item * 2
+  }, arr)
+  console.log(newArr1);
+</script>
+<script>
+  var arr = [1, 2, 3, 4, 5]
+  Array.prototype.myFilter = function(fn, context) {
+    let result = [];
+    for (let i = 0; i < this.length; i++) {
+      var item = this[i]
+      //map第二个参数context是this指向
+      //fn函数的三个参数分别为/当前值/索引/数组本省
+      //当执行函数返回true的时候,才可以push到数组内
+      fn.call(context, item, i, this) && result.push(item)
+    }
+    return result
+  }
+  var newArr = arr.myFilter(function(item) {
+    return item > 2
+  })
+  console.log(newArr); //[3, 4, 5]
+</script>
+<script>
+  var arr = [1, 2, 3, 4, 5]
+  //实现一个reduce方法
+  Array.prototype.myReduce = function(fn, initVal) {
+    var res = '';
+    var index = '';
+    if (!initVal) {
+      res = this[0]; //如果初始值没有 res为第一个值
+      index = 1; //index从1开始
+    } else {
+      res = initVal;
+      index = 0; //index从0开始
+    }
+
+    for (let i = index; i < this.length; i++) {
+      const item = this[i];
+      //fn的第一个参数是上一个的值
+      //其他三个和map和filter一样
+      res = fn(null, res, item, i, this)
+    }
+    return res;
+  }
+  var result = arr.reduce((init, next) => {
+    return init + next
+  }, 0)
+  console.log(result);
+</script>
+<script>
+  var arr = [1, 2, 3, 4, 5, 6]
+  //实现splice方法
+  Array.prototype.mySplice = function(start, deleteCount, ...addList) {
+
+    //先判断star的值
+    if (start < 0) {
+      if (Math.abs(start) > this.length) {
+        start = 0
+      } else {
+        start = this.length + start
+      }
+    }
+    //判断deleteCount数
+    deleteCount = Number(deleteCount) ? Number(deleteCount) : 0;
+    //取出删除的元素
+    var deleteList = this.slice(start, start + deleteCount)
+    //取出右半部分数组,删除后右半部分的数组
+    var rightList = this.slice(start + deleteCount);
+    var index = start;
+    //从start开始之后的元素全部替换成新增加的和剩余的
+    addList.concat(rightList).forEach((item) => {
+      this[index] = item;
+      index++
+    })
+    //修改数组长度
+    this.length = index;
+
+    return deleteList
+  }
+  console.log(arr.mySplice(2, 1, 'heyushuo')); //[3]
+  console.log(arr); //[1, 2, "heyushuo", 4, 5, 6]
+</script>
+<script>
+  var arr = [1, 2, 3, 4, 5]
+  Array.prototype.mySlice = function mySlice(start, end) {
+    var newArray = []
+    if (start == undefined) {
+      start = 0;
+    }
+    if (end == undefined) {
+      end = this.length;
+    }
+    start = start >= 0 ? start : start + this.length;
+    end = end >= 0 ? end : end + this.length
+    if (isNaN(start)) {
+      start = 0
+    }
+    if (isNaN(end)) {
+      end = 0
+    }
+    console.log(start);
+
+    if (start > end) { return [] }
+    while (start < end) {
+      newArray[newArray.length] = this[start];
+      start++;
+    }
+    return newArray;
+  };
+  console.log(arr.mySlice()); //[1, 2, 3, 4, 5]
+  console.log(arr.mySlice(1, 2)); //[2]
+  console.log(arr.mySlice(-4, 2)); //[2]
+</script>
