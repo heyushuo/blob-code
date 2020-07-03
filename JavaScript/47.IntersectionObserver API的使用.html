@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .box {
+    width: 300px;
+    height: 300px;
+    background: black;
+  }
+
+  h1 {
+    height: 400px;
+  }
+
+  p {
+    width: 100%;
+    height: 200px;
+    background: red;
+  }
+
+  .fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+</style>
+
+<body>
+  <div>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <!-- 参照元素 -->
+    <div class="reference"></div>
+    <p>我可以吸顶</p>
+    <div class="box">
+      woshi
+    </div>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+    <h1>adjflsjdfljsdf</h1>
+  </div>
+</body>
+
+</html>
+<script>
+  /**
+     boundingClientRect	空间信息
+    intersectionRatio	元素可见区域的占比
+    isIntersecting	字面理解为是否正在交叉，可用做判断元素是否可见
+    target	目标节点，就跟event.target一样
+
+    root	指定父元素，默认为视窗
+rootMargin	触发交叉的偏移值，默认为"0px 0px 0px 0px"（上左下右，正数为向外扩散，负数则向内收缩）
+
+observe	开始监听一个目标元素	节点
+unobserve	停止监听一个目标元素	节点
+takeRecords	返回所有监听的目标元素集合	
+disconnect	停止所有监听
+  */
+
+  var box = document.querySelector('.box')
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(item => console.log(item.isIntersecting));
+  })
+  console.log(io);
+
+  io.observe(box)
+
+  //实现一个吸顶的效果
+
+  let nav = document.querySelector('p');
+  let reference = document.querySelector(".reference");
+
+  new IntersectionObserver(entries => {
+
+    let item = entries[0];
+    let top = item.boundingClientRect.top;
+    console.log(top);
+
+    // 当参照元素的的top值小于0，也就是在视窗的顶部的时候，开始吸顶，否则移除吸顶
+    if (top < 0) nav.classList.add("fixed");
+    else nav.classList.remove("fixed");
+
+  }).observe(reference);
+</script>

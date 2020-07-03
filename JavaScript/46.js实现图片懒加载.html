@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      display: block;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/b.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/shanchu.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/prototype3.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/prototype1.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/prototype2.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/prototype4.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/prototype5.png" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/lujing_211101.jpg" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/lizir.jpg" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/searchtree.jpg" src="" alt="">
+  <img data-src="https://raw.githubusercontent.com/heyushuo/image/master/xunhuan.png" src="" alt="">
+</body>
+
+</html>
+<!-- <script>
+  let imgList = [...document.querySelectorAll('img')];
+  let num = imgList.length;
+  console.log(1212);
+  let lazyLoad = (function() {
+    let count = 0;
+    return function() {
+      let deleteIndexList = [];
+      imgList.forEach((item, index) => {
+        //获取图片到顶部的距离
+        let top = item.getBoundingClientRect().top;
+        //获取可视区域的高度
+        let clientHeight = document.documentElement.clientHeight || window.innerHeight;
+        //说明图片到可视区域了
+        if (top < clientHeight) {
+          let url = item.getAttribute('data-src');
+          item.setAttribute('src', url);
+          //加载了图片,这个索引需要删除了
+          deleteIndexList.push(index)
+        }
+        count++;
+        if (count == num) {
+          //加载完之后,需要去掉监听事件
+          document.removeEventListener('scroll', lazyLoad);
+        }
+      })
+      //此时imgList中只包含没有加载的图片
+      imgList = imgList.filter((item, index) => { return !deleteIndexList.includes(index) })
+    }
+  })()
+  lazyLoad()
+  document.addEventListener('scroll', lazyLoad);
+</script> -->
+<script>
+  /**
+  传统的实现方法是，监听到scroll事件后，调用目标元素（绿色方块）的getBoundingClientRect()方法，
+  得到它对应于视口左上角的坐标，再判断是否在视口之内。这种方法的缺点是，
+  由于scroll事件密集发生，计算量很大，容易造成性能问题。
+
+目前有一个新的 IntersectionObserver API，可以自动"观察"元素是否可见，
+Chrome 51+ 已经支持。由于可见（visible）的本质是，目标元素与视口产生一个交叉区，
+所以这个 API 叫做"交叉观察器"。
+*/
+  let imgList = [...document.querySelectorAll('img')];
+  let lazyLoad = function() {
+    let observer = new IntersectionObserver(function(entries) {
+      entries.forEach((item) => {
+        //如果为true说明在可视区域内
+        if (item.isIntersecting) {
+          item.target.src = item.target.getAttribute('data-src');
+          //取消监听
+          observer.unobserve(item.target)
+        }
+      })
+    })
+    imgList.forEach((item) => {
+      observer.observe(item)
+    })
+  }
+  lazyLoad();
+</script>
