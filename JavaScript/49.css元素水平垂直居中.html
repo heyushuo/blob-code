@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 不适合多行元素 */
+    /* .box {
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      border: 1px solid black;
+    } */
+    /* 多行元素 */
+    .box {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      display: table;
+    }
+
+    .box p {
+      /* 相当于table的一个单元格 */
+      display: table-cell;
+      /* 居中 */
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="box">
+      <p>阿萨德解放啦世纪东方拉就是大佬开的</p>
+    </div>
+  </div>
+</body>
+
+</html>
