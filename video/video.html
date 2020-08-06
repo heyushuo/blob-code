@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://p3.ssl.qhimg.com/t01322f670e14f2f5c7.png"
+      rel="shortcut icon"
+    />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body,
+    html {
+      width: 100%;
+    }
+    video {
+      width: 100%;
+      height: 190px;
+    }
+    p {
+      position: absolute;
+      color: red;
+      font-weight: bold;
+      font-size: 14px;
+      top: 50px;
+    }
+  </style>
+  <body>
+    <video
+      id="myVideo"
+      src="http://isc.360kan.com/vod-isc-vod-101240-beijing/TLf4a88cf536a153ce921ddf35ef7408a3.mp4"
+      controls
+      style="object-fit: fill;"
+      webkit-playsinline=""
+      playsinline="true"
+      x5-video-player-type="h5-page"
+      x5-video-player-fullscreen="true"
+    ></video>
+    <p>我是何玉硕</p>
+  </body>
+</html>
+<!--  x5-playsinline="" -->
+<!--  style="object-fit: fill;" -->
+<script>
+  /**\
+   * 
+   * 
+   *  x5-video-orientation="landscape"
+      x5-video-player-type="h5-page"
+   * x5-video-player-fullscreen="true"
+ x5-video-player-type="h5-page"
+webkit-playsinline=""
+      playsinline="true"
+   * 
+   * 
+   *   * */
+  window.onresize = function () {
+    // 只有横屏放大才能监听到
+    // alert(window.innerWidth);
+    // test_video.style.width = window.innerWidth + "px";
+    // test_video.style.height = window.innerHeight + "px";
+  };
+  var myVideo = document.getElementById("myVideo");
+  myVideo.addEventListener("x5videoenterfullscreen", function () {
+    alert("player enterfullscreen");
+  });
+  myVideo.addEventListener("x5videoexitfullscreen", function () {
+    alert("player enterfullscreen");
+  });
+  myVideo.onpause = function () {
+    console.log("onpause");
+  };
+  // 实时监听视频的播放
+  myVideo.onplay = function (e) {
+    console.log("onplay");
+    console.log(e.timeStamp);
+  };
+  myVideo.onprogress = function () {
+    console.log("onplay");
+  };
+  myVideo.ontimeupdate = function (e) {
+    console.log("ontimeupdate");
+  };
+  // 	当加载媒介数据时运行脚本
+  myVideo.onloadeddata = function (e) {
+    console.log("onloadeddata");
+  };
+</script>
