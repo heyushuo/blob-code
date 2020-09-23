@@ -20,7 +20,7 @@
     }
     video {
       width: 100%;
-      height: 190px;
+      height: 100%;
     }
     p {
       position: absolute;
@@ -29,19 +29,29 @@
       font-size: 14px;
       top: 50px;
     }
+    #playtuichu {
+      position: absolute;
+      top: 100px;
+      color: #fff;
+    }
   </style>
   <body>
-    <video
-      id="myVideo"
-      src="http://isc.360kan.com/vod-isc-vod-101240-beijing/TLf4a88cf536a153ce921ddf35ef7408a3.mp4"
-      controls
-      style="object-fit: fill;"
-      webkit-playsinline=""
-      playsinline="true"
-      x5-video-player-type="h5-page"
-      x5-video-player-fullscreen="true"
-    ></video>
+    <div class="videbox">
+      <video
+        id="myVideo"
+        src="http://isc.360kan.com/vod-isc-vod-101240-beijing/TLf4a88cf536a153ce921ddf35ef7408a3.mp4"
+        controls
+        style="object-fit: fill;"
+        webkit-playsinline=""
+        playsinline="true"
+        x5-video-player-type="h5-page"
+        x5-video-player-fullscreen="true"
+      ></video>
+    </div>
+
+    <div id="playbig">放大</div>
     <p>我是何玉硕</p>
+    <div id="playtuichu">退出</div>
   </body>
 </html>
 <!--  x5-playsinline="" -->
@@ -59,6 +69,7 @@ webkit-playsinline=""
    * 
    * 
    *   * */
+
   window.onresize = function () {
     // 只有横屏放大才能监听到
     // alert(window.innerWidth);
@@ -66,6 +77,18 @@ webkit-playsinline=""
     // test_video.style.height = window.innerHeight + "px";
   };
   var myVideo = document.getElementById("myVideo");
+  var videbox = document.querySelector(".videbox");
+  var playbig = document.getElementById("playbig");
+  var playtuichu = document.getElementById("playtuichu");
+  playbig.onclick = function () {
+    videbox.style =
+      "position:fixed;top:0;right:0;width:100%;height:100%;background:black;";
+    myVideo.style = " object-position:50% 50% !important;";
+  };
+  playtuichu.onclick = function () {
+    videbox.style = "";
+    myVideo.style = "";
+  };
   myVideo.addEventListener("x5videoenterfullscreen", function () {
     alert("player enterfullscreen");
   });
@@ -78,12 +101,14 @@ webkit-playsinline=""
   // 实时监听视频的播放
   myVideo.onplay = function (e) {
     console.log("onplay");
-    console.log(e.timeStamp);
+    // console.log(e.timeStamp);
   };
   myVideo.onprogress = function () {
     console.log("onplay");
   };
+   // 实时监听视频的播放
   myVideo.ontimeupdate = function (e) {
+    console.log('myVideo.currentTime',myVideo.currentTime);
     console.log("ontimeupdate");
   };
   // 	当加载媒介数据时运行脚本
