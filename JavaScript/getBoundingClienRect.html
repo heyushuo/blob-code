@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="h1">1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1 id="h2" style="color: red">1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+    <h1>1-39123123</h1>
+  </body>
+</html>
+<script>
+  window.onscroll = function () {
+    let element = document.getElementById("h1");
+    var clientHeight = document.documentElement.clientHeight;
+    console.log(element.getBoundingClientRect().top);
+    console.log(
+      element.getBoundingClientRect().top < clientHeight &&
+        element.getBoundingClientRect().top > 0
+    );
+
+    var h2 = document.getElementById("h2");
+    //获取一个元素到顶部的距离
+    function getTop(e) {
+      var T = 0;
+      while (e) {
+        T += e.offsetTop;
+        e = e.offsetParent;
+      }
+      return T;
+    }
+    var scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    //获取浏览器可视窗口的高度
+    var clientHeight = document.documentElement.clientHeight; //值得是根节点，即html节点。
+    //说明到达可是区域了
+    getTop(h2) < clientHeight + scrollTop && getTop(h2) > scrollTop;
+  };
+  // 内容分发网络CDN,采用就近访问的方式,大大提供用户的访问速度
+</script>
