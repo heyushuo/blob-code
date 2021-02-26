@@ -58,6 +58,7 @@ function debounce(fn, wait) {
     }, wait);
   };
 }
+// throttle
 // 想要立即执行
 function debounce(fn, wait, immediate) {
   let timer = null;
